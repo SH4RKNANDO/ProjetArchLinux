@@ -1,0 +1,9 @@
+#!/bin/bash
+
+umount -Rv /home/jail/*
+
+userdel toto
+
+rm -rfv /home/jail
+rm -rfv /etc/jail/toto/
+rm -rfv /var/jail/toto/
