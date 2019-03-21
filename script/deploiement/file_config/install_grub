@@ -1,0 +1,4 @@
+#!/bin/bash
+mkinitcpio -p linux
+grub-mkconfig -o /boot/grub/grub.cfg
+grub-install /dev/sde --recheck

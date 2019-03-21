@@ -1,0 +1,12 @@
+[Unit]
+Description=Jail Mount SSH
+After=sshd.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/bin/jail_mount
+
+[Install]
+WantedBy=multi-user.target
+

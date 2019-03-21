@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo -e "\nCreation des Noeux\n"
+mknod -m 600 /home/jail/dev/console c 5 1
+mknod -m 666 /home/jail/dev/null c 1 3
+
+echo -e "\nMontage des Noeux\n"
+mount -v --bind /dev /home/jail/dev
+	
+mount -vt devpts devpts /home/jail/dev/pts -o gid=5,mode=620
+mount -vt proc proc /home/jail/proc
+mount -vt sysfs sysfs /home/jail/sys
+mount -vt tmpfs tmpfs /home/jail/run
+	
+if [ -h /home/jail/dev/shm ]; then
+	mkdir -pv /home/jail/$(readlink /home/jail/dev/shm)
+fi
