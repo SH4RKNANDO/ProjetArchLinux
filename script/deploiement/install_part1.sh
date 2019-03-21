@@ -154,15 +154,9 @@ function CheckServer {
 	echo "---------------------------"
 }
 
-function ChrootConfig {
-	cp -avr install_part2.sh /mnt/install_part2.sh
-	chroot /home/mayank/chroot/codebase /bin/bash <<"EOT"
-
-chmod -v 755 install_part2.sh
-bash install_part2.sh
-
-EOT
-
+function Get_Script {
+	cd /mnt
+	git clone https://github.com/SH4RKNANDO/ProjetArchLinux.git
 }
 
 function main {
