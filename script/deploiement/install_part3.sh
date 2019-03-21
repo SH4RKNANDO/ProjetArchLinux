@@ -9,7 +9,6 @@ ROOT_PASSWORD="arch-server"
 USER_PASSWORD="arch-server"
 USER_NAME="admin"
 GRUB_DISK="/dev/sde"
-JAIL_DIR="/home/jail"
 
 #////////////////////////////////// 
 #//    CONFIG BASIC SERVER       //
