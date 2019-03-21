@@ -104,9 +104,11 @@ function ConfigSSH {
 #/////////////////////////////////
 
 function InstallSamba {
+	echo -e "\nInstallation de Samba\n"
 	pacman -S samba
 	cp -avr file_config/jail_mount.service /etc/samba/smb.conf
 	
+	echo -e "\nActivation de Samba\n"
 	systemctl enable nmb smb
 	
 	yes $USER_PASSWORD | smbpasswd -a admin
@@ -119,7 +121,10 @@ function InstallSamba {
 #/////////////////////////////////
 
 function InstallNFS {
+	echo -e "\nInstallation de NFS\n"
 	pacman -S nfs-utils python mkinitcpio-nfs-utils
+	
+	echo -e "\nActivation du Service de NFS\n"
 	systemctl enable nfs-server
 }
 

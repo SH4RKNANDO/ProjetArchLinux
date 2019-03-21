@@ -87,12 +87,71 @@ function MountPartition {
 }
 
 function InstallSystem {
-	pacstrap /mnt base net-tools zsh git htop zsh-autosuggestions zsh-completions zshdb  \
-	              zsh-history-substring-search zsh-lovers zsh-syntax-highlighting zssh   \ 
+	pacman -Suy
+	pacstrap /mnt base net-tools zsh git htop zsh-autosuggestions zsh-completions zshdb \
+	              zsh-history-substring-search zsh-lovers zsh-syntax-highlighting zssh  \
 	              zsh-theme-powerlevel9k powerline-fonts awesome-terminal-fonts acpi 
 	              
 	genfstab -U -p /mnt > /mnt/etc/fstab
 	mount -v --bind /run/lvm /mnt/hostlvm
+}
+
+
+function CheckServer {
+	echo
+	
+	echo "Verification du raid"
+	echo
+	cat /proc/mdstat
+	echo
+	echo "---------------------------"
+
+
+	echo
+	echo "Vérification du paritionnement"
+	echo
+	lsblk
+	echo
+	echo "---------------------------"
+
+	echo
+	echo "Verification de l'espace disponible"
+	echo
+	df -h
+	echo
+	echo "---------------------------"
+
+
+	echo
+	echo "Vérification des PV"
+	echo
+	pvs
+	echo
+	echo "---------------------------"
+
+
+	echo
+	echo "Vérification des VG"
+	echo
+	vgs
+	echo
+	echo "---------------------------"
+
+
+	echo
+	echo "Vérification des LV"
+	echo
+	lvs
+	echo
+	echo "---------------------------"
+
+
+	echo
+	echo "Verification de la RAM"
+	echo
+	free -h
+	echo
+	echo "---------------------------"
 }
 
 function main {
@@ -103,6 +162,7 @@ function main {
 	FormatPartition
 	MountPartition
 	InstallSystem
+	CheckServer
 }
 
 main
