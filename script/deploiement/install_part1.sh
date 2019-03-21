@@ -98,8 +98,8 @@ function InstallSystem {
 
 
 function CheckServer {
+
 	echo
-	
 	echo "Verification du raid"
 	echo
 	cat /proc/mdstat
@@ -154,9 +154,17 @@ function CheckServer {
 	echo "---------------------------"
 }
 
-function Get_Script {
+function LaunchScript2 {
+
+	arch-chroot /mnt /bin/bash <<EOF
+
 	cd /mnt
 	git clone https://github.com/SH4RKNANDO/ProjetArchLinux.git
+	cd ProjetArchLinux/script/deploiement/
+	chmod +x install_part2.sh
+	bash install_part2.sh
+	
+EOF
 }
 
 function main {
@@ -168,6 +176,7 @@ function main {
 	MountPartition
 	InstallSystem
 	CheckServer
+	Get_Script
 	reboot
 }
 
