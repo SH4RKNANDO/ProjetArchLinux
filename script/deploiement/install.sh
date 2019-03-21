@@ -5,57 +5,121 @@
 #        Script de déploiement Arch-linux
 # /////////////////////////////////////////////////
 
-
 # ///////////////////// Variables de configuration ////////////////////////////
+
+# Module CONFIG
 MODULE_LIST="raid1 raid0 dm-mod"
-RAID_LIST="/dev/md0 /dev/md1 /dev/md3"
-RAID_LEVEL1="1" # 0,1,2,3,4 pour le raid 0,1,2,3,4
-RAID_DISK1=""
-RAID_DISK2=""
 
+# DISK CONFIG
+DISK_LIST="/dev/sda /dev/sdb /dev/sdc /dev/sdd /dev/sde"
 
-
-
-
-
-
-
-
-
+if [ "$EUID" -ne 0 ]
+  then echo -e "Please run as root"
+  exit
+fi
 
 # //////////////////////////////////////////////////////////////////
-# //////////////////////////////////////////////////////////////////
+
 function LoadModules {
+	echo -e "\nChargement des Modules : $MODULE_LIST\n"
 	for module in $MODULE_LIST; do
-		echo $module
-		# modprobe $module
+		# echo -e "$module"
+		modprobe $module
 	done
 }
-
-function CreateRaid {
-	for RAID in $RAID_LIST; do
-		# yes | mdadm --create $RAID --level=$RAID_LEVEL --raid-devices=2 $RAID_DISK1 $RAID_DISK2
-		echo $RAID
-	done
-}
-
 
 function CreatePartition {
-	(
-	echo o # Create a new empty DOS partition table
-	echo n # Add a new partition
-	echo p # Primary partition
-	echo 1 # Partition number
-	echo   # First sector (Accept default: 1)
-	echo   # Last sector (Accept default: varies)
-	echo w # Write changes
-	) | sudo fdisk $DISK
+	for DISK in $DISK_LIST; do 
+		(
+		echo o # Create a new empty DOS partition table
+		echo n # Add a new partition
+		echo p # Primary partition
+		echo 1 # Partition number
+		echo   # First sector (Accept default: 1)
+		echo   # Last sector (Accept default: varies)
+		echo w # Write changes
+		) | fdisk $DISK
+	done
 }
 
-# mkfs.ext2 /dev/sdb -L label_volume
 
+# Notes Utilisation du RAID 10
+function CreateRaid {
+	echo -e "\nCréation des Raids : $RAID_LIST\n"
+	yes | mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sda1 /dev/sdb1
+	yes | mdadm --create /dev/md1 --level=1 --raid-devices=2 /dev/sdc1 /dev/sdd1
+	yes | mdadm --create /dev/md3 --level=0 --raid-devices=2 /dev/md0  /dev/md1 
+}
+
+function CreateLVM {
+	echo -e "\nCréation du Volume Physique\n"
+	pvcreate /dev/md3
+	echo -e "\nCréation du Volume Physique\n"	
+	vgcreate raid10 /dev/md3
+	echo -e "\nCréation du Volume Physique\n"
+	lvcreate -L 1GB --name lv_home raid10 #/home
+	lvcreate -L 4GB --name lv_srv raid10 #/srv
+	lvcreate -L 4GB --name lv_tmp raid10 #/tmp
+	lvcreate -L 4GB --name lv_partage raid10 #/partage
+	lvcreate -L 4GB --name lv_swap raid10 #SWAP
+	lvcreate -l 100%FREE --name lv_root raid10 #/
+}
+
+function FormatPartition {
+	mkfs.ext4 /dev/sde1 -L PART_MBR
+	mkfs.ext4 /dev/mapper/raid10-lv_home -L PART_HOME
+	mkfs.ext4 /dev/mapper/raid10-lv_root -L PART_ROOT
+	mkfs.ext4 /dev/mapper/raid10-lv_srv  -L PART_SRV
+	mkfs.ext4 /dev/mapper/raid10-lv_partage -L PART_PARTAGE
+	mkfs.ext4 /dev/mapper/raid10-lv_tmp -L PART_TMP
+	mkswap /dev/mapper/raid10-lv_swap -L PART_SWAP
+}
+
+function MountPartition {
+	mount -v /dev/mapper/raid10-lv_root /mnt #/
+	mkdir -pv /mnt/{boot,srv,home,partage,tmp,hostlvm}
+	mount -v /dev/sde1 /mnt/boot #/boot
+	mount -v /dev/mapper/raid10-lv_srv /mnt/srv
+	mount -v /dev/mapper/raid10-lv_home /mnt/home
+	mount -v /dev/mapper/raid10-lv_partage /mnt/partage
+	mount -v /dev/mapper/raid10-lv_tmp /mnt/tmp
+	swapon /dev/mapper/raid10-lv_swap 
+}
+
+function InstallSystem {
+	pacstrap /mnt base net-tools zsh git htop zsh-autosuggestions zsh-completions zshdb  \
+	              zsh-history-substring-search zsh-lovers zsh-syntax-highlighting zssh   \ 
+	              zsh-theme-powerlevel9k powerline-fonts awesome-terminal-fonts acpi 
+	              
+	genfstab -U -p /mnt > /mnt/etc/fstab
+	mount -v --bind /run/lvm /mnt/hostlvm
+}
 
 function main {
-	loadModules
+	LoadModules
+	CreatePartition
 	CreateRaid
+	CreateLVM
+	FormatPartition
+	MountPartition
+	InstallSystem
 }
+
+main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
