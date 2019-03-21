@@ -44,6 +44,9 @@ function PacmanConfig {
 
 function ConfigUser {
 	echo -e "\nCreate New User admin and change root password\n"
+	
+	grouppadd sambashare sshusers
+	
 	# change root password
 	yes $ROOT_PASSWORD | passwd
 	useradd -m -g users -G wheel,storage,power,sambashare -s /bin/bash $USER_NAME
