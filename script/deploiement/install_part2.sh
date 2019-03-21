@@ -45,7 +45,8 @@ function PacmanConfig {
 function ConfigUser {
 	echo -e "\nCreate New User admin and change root password\n"
 	
-	grouppadd sambashare sshusers
+	groupadd sambashare 
+	groupadd sshusers
 	
 	# change root password
 	yes $ROOT_PASSWORD | passwd
@@ -67,6 +68,10 @@ function InstallGrub {
 	grub-install $GRUB_DISK --recheck
 	cp -avr file_config/install_grub /usr/bin/install_grub
 	chmod 755 /usr/bin/install_grub
+	
+	mkinitcpio -p linux	
+	grub-mkconfig -o /boot/grub/grub.cfg
+	grub-install $GRUB_DISK --recheck
 }
 
 function InstallZsh {

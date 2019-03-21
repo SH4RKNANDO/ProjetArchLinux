@@ -177,6 +177,7 @@ function main {
 	InstallSystem
 	CheckServer
 	Get_Script
+	LaunchScript2
 	reboot
 }
 
