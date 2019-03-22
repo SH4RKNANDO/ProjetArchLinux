@@ -183,6 +183,9 @@ function main {
 	InstallSystem
 	CheckServer
 	LaunchScript2
+	# Cleanning
+	umount -Rv /mnt/hostlvm
+	rm -rfv  /mnt/hostlvm
 	reboot
 }
 
