@@ -13,13 +13,13 @@ Obtenir un accès ssh
 
 ## Cloner le dépot :
 
-yes "n" | pacman -Sy
-yes "y" | pacman -S git 
-git clone https://github.com/SH4RKNANDO/ProjetArchLinux.git
+<span>yes "n" | pacman -Sy <br></span>
+<span>yes "y" | pacman -S git <br></span>
+<span>git clone https://github.com/SH4RKNANDO/ProjetArchLinux.git <br></span>
 
 ## Lancement du déploiement partie 1:
 
-cd ProjetArchLinux/script/deploiement/
-bash install_part1.sh
+<span>cd ProjetArchLinux/script/deploiement/ <br></span>
+<span>bash install_part1.sh <br></span>
 
 notes : La partie2 est appelée par la partie1
