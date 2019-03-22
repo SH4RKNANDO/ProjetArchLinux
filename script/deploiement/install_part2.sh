@@ -122,7 +122,7 @@ function InstallZsh {
 	
 	# copies du fichier dans le skel
 	cp -avr file_config/.zshrc /etc/skel
-	cp -avr ~/.oh-my-zsh /etc/skel	
+	cp -ar ~/.oh-my-zsh /etc/skel	
 }
 
 function ConfigServer {
