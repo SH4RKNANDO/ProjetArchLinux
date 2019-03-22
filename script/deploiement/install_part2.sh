@@ -15,9 +15,13 @@ GRUB_DISK="/dev/sde"
 #/////////////////////////////////
 
 function ConfigBasic {
+	echo -e "\nConfiguration Basique du Server\n"
 	ln -sv /hostlvm /run/lvm
 	echo KEYMAP=be-latin1 >> /etc/vconsole.conf
 	echo FONT=lat9u-16 >> /etc/vconsole.conf
+	
+	echo -e "\nBackup du fichier de configuration des langues\n"
+	cp -avr /etc/locale.gen /etc/locale.gen.bak
 	
 	sed -i '/en_US.UTF-8/s/^#//g' /etc/locale.gen
 	sed -i '/fr_BE.UTF-8/s/^#//g' /etc/locale.gen
@@ -31,6 +35,8 @@ function ConfigBasic {
 	
 	echo arch-server > /etc/hostname
 	
+	
+	echo -e "\nSynchronisation de l'heure et du fuseaux Europe/Brussels\n"
 	ln -sfv /usr/share/zoneinfo/Europe/Brussels /etc/localtime
 	hwclock --systohc --utc	
 }
@@ -38,13 +44,13 @@ function ConfigBasic {
 function PacmanConfig {
 	echo -e "\nBackup File pacman.conf\n"
 	cp -avr /etc/pacman.conf /etc/pacman.conf.bak
+	echo -e "\nConfiguration de pacman\n"
 	cp -avr file_config/pacman.conf /etc/pacman.conf
 	pacman -Syy
 }
 
 function ConfigUser {
 	echo -e "\nCreate New User admin and change root password\n"
-	
 	groupadd sambashare 
 	groupadd sshusers
 	

@@ -66,6 +66,7 @@ function CreateLVM {
 }
 
 function FormatPartition {
+	echo -e "\nFormatage des Partitions\n"
 	mkfs.ext4 /dev/sde1 -L PART_MBR
 	mkfs.ext4 /dev/mapper/raid10-lv_home -L PART_HOME
 	mkfs.ext4 /dev/mapper/raid10-lv_root -L PART_ROOT
@@ -76,6 +77,7 @@ function FormatPartition {
 }
 
 function MountPartition {
+	echo -e "\nMontage des Partitions\n"
 	mount -v /dev/mapper/raid10-lv_root /mnt #/
 	mkdir -pv /mnt/{boot,srv,home,partage,tmp,hostlvm}
 	mount -v /dev/sde1 /mnt/boot #/boot
@@ -88,10 +90,13 @@ function MountPartition {
 
 function InstallSystem {
 	pacman -Suy
+	
+	echo -e "\nInstallation du système\n"
 	pacstrap /mnt base net-tools zsh git htop zsh-autosuggestions zsh-completions zshdb \
 	              zsh-history-substring-search zsh-lovers zsh-syntax-highlighting zssh  \
 	              zsh-theme-powerlevel9k powerline-fonts awesome-terminal-fonts acpi 
-	              
+	
+	echo -e "\nGeneration du fichier FSTAB\n"
 	genfstab -U -p /mnt > /mnt/etc/fstab
 	mount -v --bind /run/lvm /mnt/hostlvm
 }
@@ -155,7 +160,7 @@ function CheckServer {
 }
 
 function LaunchScript2 {
-
+	echo -e "\nLancement de l'installation Partie 2\n"
 	arch-chroot /mnt /bin/bash <<EOF
 
 	cd /mnt
@@ -163,7 +168,6 @@ function LaunchScript2 {
 	cd ProjetArchLinux/script/deploiement/
 	chmod +x install_part2.sh
 	bash install_part2.sh
-	
 EOF
 }
 
@@ -176,26 +180,10 @@ function main {
 	MountPartition
 	InstallSystem
 	CheckServer
-	Get_Script
 	LaunchScript2
 	reboot
 }
 
 main
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
