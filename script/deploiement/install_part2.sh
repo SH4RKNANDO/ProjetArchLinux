@@ -61,10 +61,6 @@ DNS=('1.1.1.1' '"$IPSTATIC"')" > $FILE
 	echo -e "\nActivation de l'addresse IP Static\n"
 	
 	netctl enable $NETWORK_INTERFACE
-	netctl stop ens33
-	ifconfig ens33 down
-	netctl start $NETWORK_INTERFACE
-	netctl status $NETWORK_INTERFACE
 }
 
 function CheckIP {
