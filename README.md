@@ -1,4 +1,4 @@
-# ProjetArchLinux
+# Projet Arch Linux
 Configuration de base d'un server Arch-Linux Sécurisé
 
 ## Pré-requis du déploiement 
