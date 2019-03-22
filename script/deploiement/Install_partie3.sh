@@ -6,6 +6,7 @@
 #//////////////////////////////////////////////
 
 JAIL_DIR="/home/jail"
+NFS_EXPORT=""
 
 #///////////////////////////////// 
 #//         SERVICE SSH         //
@@ -45,7 +46,7 @@ function CreateDirectory {
 }
 
 function InstallDir {
-	pacman -S arch-install-scripts
+	yes 'y' | pacman -S arch-install-scripts
 	echo -e "\nCreation de la prison ssh jail\n"
 	pacstrap $JAIL_DIR bash nano which tar less grep zsh coreutils \
 			        zsh-autosuggestions zsh-completions zshdb       \
@@ -65,8 +66,8 @@ function ServiceMountJail {
 	cp -avr file_config/jail_mount.service /etc/systemd/system/jail_mount.service
 	chmod -v 777 /etc/systemd/system/jail_mount.service
 		
-	systemctl daemntptimeon-reload
-	systemctl enabntptimele jail_mount.service
+	systemctl daemeon-reload
+	systemctl enable jail_mount.service
 	systemctl start jail_mount.service 
 }
 
@@ -106,8 +107,8 @@ function ConfigSSH {
 
 function InstallSamba {
 	echo -e "\nInstallation de Samba\n"
-	pacman -S samba
-	cp -avr file_config/jail_mount.service /etc/samba/smb.conf
+	yes 'y' | pacman -S samba
+	cp -avr file_config/smb.conf /etc/samba/smb.conf
 	
 	echo -e "\nActivation de Samba\n"
 	systemctl enable nmb smb
@@ -125,7 +126,7 @@ function InstallSamba {
 
 function InstallNFS {
 	echo -e "\nInstallation de NFS\n"
-	pacman -S nfs-utils python mkinitcpio-nfs-utils
+	yes 'y' | pacman -S nfs-utils python mkinitcpio-nfs-utils
 	
 	echo -e "\nActivation du Service de NFS\n"
 	systemctl enable nfs-server
@@ -133,6 +134,7 @@ function InstallNFS {
 	systemctl status nfs-server
 	
 	# TODO
+	cat 
 	# exportfs -av
 	# systemctl restart nfs-server
 	# systemctl status nfs-server
@@ -147,7 +149,7 @@ function InstallNFS {
 
 function InstallMysql {
 	echo -e "\nInstallation de Mysql\n"
-	pacman -S mariadb perl-dbd-mysql galera rsync
+	yes 'y' | pacman -S mariadb perl-dbd-mysql galera rsync
 	
 	mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 	
@@ -179,9 +181,9 @@ default-character-set = latin1" >> /etc/mysql/my.cnf
 
 function InstallNtpd {
 	echo -e "\nInstallation de Ntpd\n"
-	pacman -S ntp
+	yes 'y' | pacman -S ntp
 	
-	echo "\nBackup du Fichier d'installation\n"
+	echo -e "\nBackup du Fichier d'installation\n"
 	cp -avr /etc/ntp.conf /etc/ntp.conf.bak
 	
 	echo "# Configuration du Pool NTP
@@ -193,7 +195,7 @@ server 3.be.pool.ntp.org" >> /etc/ntp.conf
 	echo "\nVeuillez entrer l'heure et la date du système (2019-03-20 14:45:30) :"
 	read DATE
 	timedatectl set-time "$DATE"
-	set-timezone Europe/Brussels
+	timedatectl set-timezone Europe/Brussels
 	
 	systemctl start ntpd
 	systemctl enable ntpd
@@ -213,7 +215,7 @@ server 3.be.pool.ntp.org" >> /etc/ntp.conf
 
 function InstallHTTPD {
 	echo -e "\nInstallation de HTTPD\n"
-	pacman -S apache curl
+	yes 'y' | pacman -S apache curl
 	
 	echo -e "\nBackup du fichier de configuration de HTTPD\n"
 	cp -avr /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.bak
@@ -238,6 +240,8 @@ function InstallHTTPD {
 
 
 
+
+
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////#///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -247,7 +251,7 @@ function InstallHTTPD {
 
 function InstallDNS {
 	echo -e "\nInstallation de DNS (BIND9) \n"
-	pacman -S bind geoip-database-extra
+	yes 'y' | pacman -S bind geoip-database-extra
 	
 	echo -e "\nBackup du fichier de configuration de BIND9\n"
 	cp -avr /etc/named.conf  /etc/named.conf.back
@@ -266,11 +270,15 @@ function InstallDNS {
 
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////#///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+function RemountBoot {
+	umount -Rv /boot
+	mount -v /dev/sde1 /boot
+}
 
 
 function main {
+	RemountBoot
 	ConfigSSH
-	ConfigSamba
 	InstallSamba
 	InstallNFS
 	InstallMysql

@@ -161,15 +161,18 @@ function CheckServer {
 	echo "---------------------------"
 }
 
-function LaunchScript2 {
+function LaunchScript {
 	echo -e "\nLancement de l'installation Partie 2\n"
 	arch-chroot /mnt /bin/bash <<EOF
 
 	cd /mnt
 	git clone https://github.com/SH4RKNANDO/ProjetArchLinux.git
 	cd ProjetArchLinux/script/deploiement/
-	chmod +x install_part2.sh
+	chmod +x -v install_part2.sh
 	bash install_part2.sh
+	chmod +x -v install_part2.sh
+	bash install_part3.sh
+	
 EOF
 }
 
@@ -183,6 +186,7 @@ function main {
 	InstallSystem
 	CheckServer
 	LaunchScript2
+	
 	# Cleanning
 	umount -Rv /mnt/hostlvm
 	rm -rfv  /mnt/hostlvm

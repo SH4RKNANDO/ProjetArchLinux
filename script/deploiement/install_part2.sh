@@ -38,6 +38,8 @@ function ConfigBasic {
 	
 	echo arch-server > /etc/hostname
 	
+	# Add Sticky Bit on Partage
+	chmod -v 1660 /partage
 	
 	echo -e "\nSynchronisation de l'heure et du fuseaux Europe/Brussels\n"
 	ln -sfv /usr/share/zoneinfo/Europe/Brussels /etc/localtime
