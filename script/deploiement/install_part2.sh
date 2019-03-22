@@ -9,7 +9,7 @@ ROOT_PASSWORD="arch-server"
 USER_PASSWORD="arch-server"
 USER_NAME="admin"
 GRUB_DISK="/dev/sde"
-IPSTATIC="10.0.0.39"
+IPSTATIC="10.0.0.39/24"
 IPROUTER="10.0.0.1"
 CHECKIP='y'
 
