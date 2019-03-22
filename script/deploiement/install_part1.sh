@@ -185,7 +185,7 @@ function main {
 	MountPartition
 	InstallSystem
 	CheckServer
-	LaunchScript2
+	LaunchScript
 	
 	# Cleanning
 	umount -Rv /mnt/hostlvm
