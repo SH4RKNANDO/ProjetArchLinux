@@ -80,6 +80,39 @@ function InstallGrub {
 	grub-install $GRUB_DISK --recheck
 }
 
+function SecuFstab {
+
+	cp -avr /etc/fstab /etc/fstab.bak
+	
+	echo "Sécurisation des partitions"
+	
+	# Root Parition
+	cat /etc/fstab |  egrep root | awk '{ print }' > /etc/fstab2
+	
+	# Boot Partition Read only
+	cat /etc/fstab |  egrep /boot | awk '$4="nodev,ro,relatime" { print }' >> /etc/fstab2
+
+	# SRV Partition
+	cat /etc/fstab |  egrep /srv | awk '$4="nodev,nosuid,rw,relatime,stripe=256" { print }' >> /etc/fstab2
+	
+	# Home Partition
+	cat /etc/fstab |  egrep /home | awk '$4="nodev,nosuid,rw,relatime,stripe=256" { print }' >> /etc/fstab2
+
+	# Partition Partage
+	cat /etc/fstab |  egrep /partage | awk '$4="nodev,nosuid,noexec,rw,relatime,stripe=256" { print }' >> /etc/fstab2	
+
+	# Parition TMP
+	cat /etc/fstab |  egrep /tmp | awk '$4="nodev,nosuid,noexec,rw,relatime,stripe=256" { print }' >> /etc/fstab2
+	
+	# SWAP Partition
+	cat /etc/fstab |  egrep swap | awk '$4="defaults,nodev,nosuid,noexec,pri=-2" { print }' >> /etc/fstab2
+	
+	cat /etc/fstab2 > /etc/fstab
+	rm -rfv /etc/fstab2
+	
+	mount -a
+}
+
 function InstallZsh {
 	echo -e "\nInstallation de zssh\n"
 	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -99,6 +132,7 @@ function ConfigServer {
 	ConfigUser
 	GenerateRamdisk
 	InstallGrub
+	SecuFstab
 	InstallZsh
 }
 
