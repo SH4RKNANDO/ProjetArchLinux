@@ -41,6 +41,40 @@ function ConfigBasic {
 	hwclock --systohc --utc	
 }
 
+function SetIpStatic {
+	
+	NETWORK_INTERFACE=$(ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2;getline}' | egrep "en")
+	echo $NETWORK_INTERFACE
+	
+	echo -e "\nQuel est l'addresse IP que vous voulez assigner ? ex : (192.168.1.2/24)"
+	read IPSTATIC
+	
+	echo -e "\nQuel est l'addresse IP de votre routeur ? ex :(192.168.1.2)"
+	read IPROUTER
+	
+	echo -e "\nBackup de l'interface Réseaux\n"
+	cp -avr /etc/netctl/$NETWORK_INTERFACE /etc/netctl/$NETWORK_INTERFACE.bak
+	
+	echo "Description='IP Static NetworkInterface'
+Interface=$NETWORK_INTERFACE
+Connection=ethernet
+IP=static
+Address=('"$IPSTATIC"')
+Gateway='"$IPROUTER"'
+DNS=('1.1.1.1' '"$IPSTATIC"')" > /etc/netctl/$NETWORK_INTERFACE
+
+	echo -e "\nActivation de l'addresse IP Static\n"
+	netctl enable enp0s3
+	netctl start enp0s3
+	netctl status enp0s3
+	
+	echo "#!/bin/bash
+	ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2;getline}' | egrep "en"
+	" > /usr/bin/get_interface
+	chmod 755 /usr/bin/get_interface
+	
+}
+
 function PacmanConfig {
 	echo -e "\nBackup File pacman.conf\n"
 	cp -avr /etc/pacman.conf /etc/pacman.conf.bak
@@ -128,13 +162,14 @@ function InstallZsh {
 
 function ConfigServer {
 	ConfigBasic
+	SetIpStatic
 	PacmanConfig
 	ConfigUser
 	GenerateRamdisk
 	InstallGrub
 	SecuFstab
 	InstallZsh
-	# Activer le service au démarrage
+	echo -e "\nActivation du Service SSH au demarrage\n"
 	systemctl enable sshd
 }
 
