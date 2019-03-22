@@ -112,6 +112,7 @@ function SecuFstab {
 	mount -a
 }
 
+
 function InstallZsh {
 	echo -e "\nInstallation de zssh\n"
 	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -133,6 +134,8 @@ function ConfigServer {
 	InstallGrub
 	SecuFstab
 	InstallZsh
+	# Activer le service au démarrage
+	systemctl enable sshd
 }
 
 ConfigServer

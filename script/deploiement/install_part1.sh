@@ -95,7 +95,8 @@ function InstallSystem {
 	pacstrap /mnt base net-tools zsh git htop zsh-autosuggestions zsh-completions zshdb \
 	              zsh-history-substring-search zsh-lovers zsh-syntax-highlighting zssh  \
 	              zsh-theme-powerlevel9k powerline-fonts awesome-terminal-fonts acpi    \
-	              grub freetype2 fuse2 libisoburn mtools dosfstools
+	              grub freetype2 fuse2 libisoburn mtools dosfstools openssh xorg-xauth  \
+	              x11-ssh-askpass
 	
 	echo -e "\nGeneration du fichier FSTAB\n"
 	genfstab -U -p /mnt > /mnt/etc/fstab

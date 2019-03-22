@@ -12,10 +12,6 @@ JAIL_DIR="/home/jail"
 #/////////////////////////////////
 
 function InstallSSH {
-	pacman -S openssh xorg-xauth x11-ssh-askpass
-	# Activer le service au démarrage
-	systemctl enable sshd
-	
 	# Copy Banner
 	cp -avr file_config/motd_ssh /etc/motd_ssh
 	
