@@ -45,11 +45,7 @@ function ConfigBasic {
 }
 
 function SetIpStatic {
-	
-	while [ -z $CHECKIP ] || [ $CHECKIP != 'y' ]
-	do
-		CheckIP
-	done
+	CheckIP
 	
 	FILE="/etc/netctl/$NETWORK_INTERFACE"
 	
