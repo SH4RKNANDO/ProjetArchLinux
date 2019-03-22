@@ -87,6 +87,7 @@ chmod -v 700 /var/tmp
 chmod -v 700 /var/games
 
 chmod 550 -v /proc	
+
 EOT
 
 }
@@ -232,13 +233,35 @@ function InstallHTTPD {
 	cp -avr file_config/httpd-vhosts.conf /etc/httpd/conf/extra/httpd-vhosts.conf
 
 
-
+	apachectl configtest
+	
+	systemctl enable httpd
+	systemctl start httpd
+	systemctl status httpd
 }
 
 
 
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////#///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+#///////////////////////////////// 
+#//       SERVICE DNS           //
+#/////////////////////////////////
+
+function InstallDNS {
+	echo -e "\nInstallation de DNS (BIND9) \n"
+	pacman -S bind geoip-database-extra
+	
+	echo -e "\nBackup du fichier de configuration de BIND9\n"
+	cp -avr /etc/named.conf  /etc/named.conf.back
+	cp -avr file_config/named.conf /etc/named.conf
+
+}
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////#///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -250,6 +273,7 @@ function main {
 	InstallMysql
 	InstallNtpd
 	InstallHTTPD
+	InstallDNS
 }
 
 
