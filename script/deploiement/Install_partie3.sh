@@ -257,6 +257,13 @@ function InstallDNS {
 	cp -avr /etc/named.conf  /etc/named.conf.back
 	cp -avr file_config/named.conf /etc/named.conf
 
+	systemctl start named.service
+	systemctl enable named.service
+	systemctl status named.service
+	
+	echo -e "\nVerification du DNS\n"
+	named-checkconf /etc/named.conf
+	named -g -p 53
 }
 
 
