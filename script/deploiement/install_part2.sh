@@ -69,7 +69,7 @@ function GenerateRamdisk {
 
 function InstallGrub {
 	echo -e "\nInstallation de grub dans le MBR\n"
-	pacman -Sy grub freetype2 fuse2 libisoburn mtools dosfstools
+	yes 'y' | pacman -S grub freetype2 fuse2 libisoburn mtools dosfstools
 	grub-mkconfig -o /boot/grub/grub.cfg
 	grub-install $GRUB_DISK --recheck
 	cp -avr file_config/install_grub /usr/bin/install_grub
