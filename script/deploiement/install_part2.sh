@@ -9,6 +9,9 @@ ROOT_PASSWORD="arch-server"
 USER_PASSWORD="arch-server"
 USER_NAME="admin"
 GRUB_DISK="/dev/sde"
+IPSTATIC="10.0.0.39"
+IPROUTER="10.0.0.1"
+CHECKIP='y'
 
 #////////////////////////////////// 
 #//    CONFIG BASIC SERVER       //
@@ -67,18 +70,18 @@ function CheckIP {
 	NETWORK_INTERFACE=$(ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2;getline}' | egrep "en")
 	NETWORK_INTERFACE=$(echo "$NETWORK_INTERFACE" | awk '{ print $1 }')
 	
-	echo -e "\nQuel est l'addresse IP que vous voulez assigner ? ex : (192.168.1.2/24)"
-	read IPSTATIC
+	#echo -e "\nQuel est l'addresse IP que vous voulez assigner ? ex : (192.168.1.2/24)"
+	#read IPSTATIC
 	
-	echo -e "\nQuel est l'addresse IP de votre routeur ? ex :(192.168.1.2)"
-	read IPROUTER
+	#echo -e "\nQuel est l'addresse IP de votre routeur ? ex :(192.168.1.2)"
+	#read IPROUTER
 	
 	echo -e "\nVoici un Résumé de votre interface Réseaux\n"
 	echo -e "Network Interface : $NETWORK_INTERFACE"
 	echo -e "IP : $IPSTATIC"
 	echo -e "Gateway : $IPROUTER"
 	echo -e "\nVotre Configuration vous convient elle ? [y/n]"
-	read CHECKIP
+	#read CHECKIP
 }
 
 function PacmanConfig {
