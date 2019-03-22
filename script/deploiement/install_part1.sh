@@ -89,7 +89,7 @@ function MountPartition {
 }
 
 function InstallSystem {
-	pacman -Suy
+	yes 'n' | pacman -Suy
 	
 	echo -e "\nInstallation du système\n"
 	pacstrap /mnt base net-tools zsh git htop zsh-autosuggestions zsh-completions zshdb \
