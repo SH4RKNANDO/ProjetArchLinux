@@ -45,7 +45,7 @@ function CreateDirectory {
 }
 
 function InstallDir {
-	yes 'y' | pacman -S arch-install-scripts
+	yes 'o' | pacman -S arch-install-scripts
 	echo -e "\nCreation de la prison ssh jail\n"
 	pacstrap $JAIL_DIR bash nano which tar less grep zsh coreutils \
 			        zsh-autosuggestions zsh-completions zshdb       \
@@ -53,7 +53,7 @@ function InstallDir {
 		            zsh-syntax-highlighting zsh-theme-powerlevel9k  \
 			        powerline-fonts awesome-terminal-fonts mariadb-clients
 			        
-	pacman -Rns arch-install-scripts
+	yes 'o' | pacman -Rns arch-install-scripts
 }
 
 function ServiceMountJail {
@@ -63,16 +63,16 @@ function ServiceMountJail {
 	chmod -v 755 /usr/bin/jail_mount
 	
 	cp -avr file_config/jail_mount.service /etc/systemd/system/jail_mount.service
-	chmod -v 777 /etc/systemd/system/jail_mount.service
+	chmod -v 644 /etc/systemd/system/jail_mount.service
 		
-	systemctl daemeon-reload
+	systemctl daemon-reload
 	systemctl enable jail_mount.service
 	systemctl start jail_mount.service 
 }
 
 function SshJailPerm {
 
-	chroot $JAIL_DIR /bin/bash <<"EOT"
+	chroot $JAIL_DIR /usr/bin/bash <<"EOT"
 
 chown -v root:sshusers /home
 chmod -v 770 /home/
@@ -106,7 +106,7 @@ function ConfigSSH {
 
 function InstallSamba {
 	echo -e "\nInstallation de Samba\n"
-	yes 'y' | pacman -S samba
+	yes 'o' | pacman -S samba
 	cp -avr file_config/smb.conf /etc/samba/smb.conf
 	
 	echo -e "\nActivation de Samba\n"
@@ -125,7 +125,7 @@ function InstallSamba {
 
 function InstallNFS {
 	echo -e "\nInstallation de NFS\n"
-	yes 'y' | pacman -S nfs-utils python mkinitcpio-nfs-utils
+	yes 'o' | pacman -S nfs-utils python mkinitcpio-nfs-utils
 	
 	echo -e "\nActivation du Service de NFS\n"
 	systemctl enable nfs-server
@@ -147,7 +147,7 @@ function InstallNFS {
 
 function InstallMysql {
 	echo -e "\nInstallation de Mysql\n"
-	yes 'y' | pacman -S mariadb perl-dbd-mysql galera rsync
+	yes 'o' | pacman -S mariadb perl-dbd-mysql galera rsync
 	
 	mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 	
@@ -179,7 +179,7 @@ default-character-set = latin1" >> /etc/mysql/my.cnf
 
 function InstallNtpd {
 	echo -e "\nInstallation de Ntpd\n"
-	yes 'y' | pacman -S ntp
+	yes 'o' | pacman -S ntp
 	
 	echo -e "\nBackup du Fichier d'installation\n"
 	cp -avr /etc/ntp.conf /etc/ntp.conf.bak
@@ -213,7 +213,7 @@ server 3.be.pool.ntp.org" >> /etc/ntp.conf
 
 function InstallHTTPD {
 	echo -e "\nInstallation de HTTPD\n"
-	yes 'y' | pacman -S apache curl
+	yes 'o' | pacman -S apache curl
 	
 	echo -e "\nBackup du fichier de configuration de HTTPD\n"
 	cp -avr /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.bak
@@ -249,7 +249,7 @@ function InstallHTTPD {
 
 function InstallDNS {
 	echo -e "\nInstallation de DNS (BIND9) \n"
-	yes 'y' | pacman -S bind geoip-database-extra
+	yes 'o' | pacman -S bind geoip-database-extra
 	
 	echo -e "\nBackup du fichier de configuration de BIND9\n"
 	cp -avr /etc/named.conf  /etc/named.conf.back
