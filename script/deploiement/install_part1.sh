@@ -173,7 +173,6 @@ function LaunchScript {
 	chmod +x -v install_part3.sh
 	
 	bash install_part2.sh
-	echo -e "\n\n\nLAUNCH PART3\n\n\n"
 	bash install_part3.sh
 	
 EOF
