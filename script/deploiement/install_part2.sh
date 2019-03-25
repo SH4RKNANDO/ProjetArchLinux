@@ -60,7 +60,6 @@ function SetIpStatic {
 	
 	echo "Description='IP Static NetworkInterface'
 Interface=$NETWORK_INTERFACE
-3..
 Connection=ethernet
 IP=static
 Address=('"$IPSTATIC"')
