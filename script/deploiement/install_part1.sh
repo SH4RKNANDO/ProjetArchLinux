@@ -96,7 +96,7 @@ function InstallSystem {
 	              zsh-history-substring-search zsh-lovers zsh-syntax-highlighting zssh  \
 	              zsh-theme-powerlevel9k powerline-fonts awesome-terminal-fonts acpi    \
 	              grub freetype2 fuse2 libisoburn mtools dosfstools openssh xorg-xauth  \
-	              x11-ssh-askpass
+	              x11-ssh-askpass 
 	
 	echo -e "\nGeneration du fichier FSTAB\n"
 	genfstab -U -p /mnt > /mnt/etc/fstab
@@ -168,10 +168,12 @@ function LaunchScript {
 	cd /mnt
 	git clone https://github.com/SH4RKNANDO/ProjetArchLinux.git
 	cd ProjetArchLinux/script/deploiement/
+	
 	chmod +x -v install_part2.sh
+	chmod +x -v install_part3.sh
+	
 	bash install_part2.sh
-	chmod +x -v install_part2.sh
-	bash install_partie3.sh
+	bash Install_partie3.sh
 	
 EOF
 }

@@ -6,7 +6,6 @@
 #//////////////////////////////////////////////
 
 JAIL_DIR="/home/jail"
-NFS_EXPORT=""
 
 #///////////////////////////////// 
 #//         SERVICE SSH         //
@@ -133,8 +132,7 @@ function InstallNFS {
 	systemctl start nfs-server
 	systemctl status nfs-server
 	
-	# TODO
-	cat 
+	# TODO 
 	# exportfs -av
 	# systemctl restart nfs-server
 	# systemctl status nfs-server
