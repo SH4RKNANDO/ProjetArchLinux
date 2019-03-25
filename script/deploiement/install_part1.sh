@@ -173,7 +173,7 @@ function LaunchScript {
 	chmod +x -v install_part3.sh
 	
 	bash install_part2.sh
-	bash Install_partie3.sh
+	bash install_partie3.sh
 	
 EOF
 }
