@@ -6,6 +6,7 @@
 #//////////////////////////////////////////////
 
 JAIL_DIR="/home/jail"
+IPSERVER=$(hostname --ip-addresses)
 
 #///////////////////////////////// 
 #//         SERVICE SSH         //
@@ -142,6 +143,7 @@ function InstallNFS {
 	echo -e "\nTODO MAKE CONFIG !!!!!\n"
 	echo -e "\nTODO MAKE CONFIG !!!!!\n"
 	# TODO 
+	
 	# exportfs -av
 	# systemctl restart nfs-server
 	# systemctl status nfs-server
@@ -230,7 +232,10 @@ function InstallHTTPD {
 	echo -e "\nBackup du fichier de configuration de HTTPD\n"
 	cp -avr /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.bak
 	cp -avr file_config/httpd.conf /etc/httpd/conf/httpd.conf
-	echo -e "\nTODO CHANGE IP TO FILE CONFIG\n"
+	
+	echo -e "\nModification de l'IP dans le fichier de configuration de HTTPD\n"
+	cat httpd.conf | sed -e "s/ServerName 10.0.0.36/ServerName $IPSERVER/" > /etc/httpd/conf/httpd.conf
+
 	
 	echo -e "\nBackup du fichier de configuration par defaut de HTTPD\n"
 	cp -avr /etc/httpd/conf/extra/httpd-default.conf /etc/httpd/conf/extra/httpd-default.conf.bak
@@ -268,6 +273,7 @@ function InstallDNS {
 	cp -avr /etc/named.conf  /etc/named.conf.back
 	cp -avr file_config/named.conf /etc/named.conf
 
+	echo -e "\Activation du Service BIND9\n"
 	systemctl start named.service
 	systemctl enable named.service
 	systemctl status named.service
