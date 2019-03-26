@@ -12,15 +12,20 @@ JAIL_DIR="/home/jail"
 #/////////////////////////////////
 
 function InstallSSH {
+	echo -e "\nCréation de la bannière ssh\n"
 	# Copy Banner
 	cp -avr file_config/motd_ssh /etc/motd_ssh
 	
 	# Backup File SSH
+	echo -e "\nBackup du fichier de configuration de sshd\n"
 	cp -avr /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+	
+	echo -e "\nConfiguration du deamon ssh\n"
 	cp -avr file_config/sshd_config /etc/sshd_config	
 	
 	systemctl restart sshd
 	systemctl status sshd
+	echo -e "\n\n"
 }
 
 #//////////////////////////////// 
@@ -30,7 +35,7 @@ function InstallSSH {
 # create Jail Directory
 function CreateDirectory {
 
-	echo -e "\nCreation des répertoire\n"
+	echo -e "\nCréation des répertoires\n"
 	mkdir -pv $JAIL_DIR/{home,etc/skel}
 
 	echo -e "\nModification des droits\n"
@@ -40,13 +45,14 @@ function CreateDirectory {
 	# cp -avr /etc/skel/ /home/jail/etc/skel/
 	cp -ar /etc/skel/ $JAIL_DIR/etc/skel/
 	
-	echo -e "\nCreation du groupe sshusers\n"
+	echo -e "\nCreation du groupe sshusers"
 	groupadd sshusers
+	echo -e "\n\n"
 }
 
 function InstallDir {
 	yes 'o' | pacman -S arch-install-scripts
-	echo -e "\nCreation de la prison ssh jail\n"
+	echo -e "\n\nCreation de la prison ssh jail\n"
 	pacstrap $JAIL_DIR bash nano which tar less grep zsh coreutils \
 			        zsh-autosuggestions zsh-completions zshdb       \
 		            zsh-history-substring-search zsh-lovers         \
@@ -58,23 +64,23 @@ function InstallDir {
 
 function ServiceMountJail {
 	
-	echo -e "\nCreation su service jail_mount.service\n"
+	echo -e "\n\nCreation su service jail_mount.service\n"
 	cp -avr file_config/jail_mount /usr/bin/jail_mount
 	chmod -v 755 /usr/bin/jail_mount
-	
 	cp -avr file_config/jail_mount.service /etc/systemd/system/jail_mount.service
 	chmod -v 644 /etc/systemd/system/jail_mount.service
-		
+	
+	echo -e "\nActivation du Service jail_mount\n"
 	systemctl daemon-reload
 	systemctl enable jail_mount.service
 	systemctl start jail_mount.service 
 }
 
 function SshJailPerm {
-
+	echo -e "\n\nModification des Permissions ssh jail\n"
 	chroot $JAIL_DIR /usr/bin/bash <<"EOT"
 
-chown -v root:sshusers /home
+#chown -v root:sshusers /home
 chmod -v 770 /home/
 
 chmod -v 0600 /tmp
@@ -105,7 +111,7 @@ function ConfigSSH {
 #/////////////////////////////////
 
 function InstallSamba {
-	echo -e "\nInstallation de Samba\n"
+	echo -e "\n\nInstallation de Samba\n"
 	yes 'o' | pacman -S samba
 	cp -avr file_config/smb.conf /etc/samba/smb.conf
 	
@@ -114,6 +120,7 @@ function InstallSamba {
 	systemctl start nmb smb
 	systemctl status nmb smb
 	
+	echo -e "\nAjout de l'utilisateur admin a samba\n"
 	yes $USER_PASSWORD | smbpasswd -a admin
 }
 
@@ -124,7 +131,7 @@ function InstallSamba {
 #/////////////////////////////////
 
 function InstallNFS {
-	echo -e "\nInstallation de NFS\n"
+	echo -e "\n\nInstallation de NFS\n"
 	yes 'o' | pacman -S nfs-utils python mkinitcpio-nfs-utils
 	
 	echo -e "\nActivation du Service de NFS\n"
@@ -132,6 +139,8 @@ function InstallNFS {
 	systemctl start nfs-server
 	systemctl status nfs-server
 	
+	echo -e "\nTODO MAKE CONFIG !!!!!\n"
+	echo -e "\nTODO MAKE CONFIG !!!!!\n"
 	# TODO 
 	# exportfs -av
 	# systemctl restart nfs-server
@@ -146,9 +155,10 @@ function InstallNFS {
 #/////////////////////////////////
 
 function InstallMysql {
-	echo -e "\nInstallation de Mysql\n"
+	echo -e "\n\nInstallation de Mysql\n"
 	yes 'o' | pacman -S mariadb perl-dbd-mysql galera rsync
 	
+	echo -e "\nConfiguration du moteur Mysql\n"
 	mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 	
 	echo "[client]
@@ -161,10 +171,12 @@ character_set_server = latin1
 [mysql]
 default-character-set = latin1" >> /etc/mysql/my.cnf
 	 
+	echo -e "\nActivation du Service MySQL\n"
 	systemctl enable mysqld # Démarrer le service au démarrage
 	systemctl start mysqld  # Redémarrer le service
 	systemctl status mysqld # Vérification
 	
+	echo -e "\nSécurisation de base de MySQL\n"
 	mysql_secure_installation
 }
 
@@ -178,7 +190,7 @@ default-character-set = latin1" >> /etc/mysql/my.cnf
 #/////////////////////////////////
 
 function InstallNtpd {
-	echo -e "\nInstallation de Ntpd\n"
+	echo -e "\n\nInstallation de Ntpd\n"
 	yes 'o' | pacman -S ntp
 	
 	echo -e "\nBackup du Fichier d'installation\n"
@@ -228,9 +240,10 @@ function InstallHTTPD {
 	cp -avr /etc/httpd/conf/extra/httpd-vhosts.conf /etc/httpd/conf/extra/httpd-vhosts.conf.bak
 	cp -avr file_config/httpd-vhosts.conf /etc/httpd/conf/extra/httpd-vhosts.conf
 
-
+	echo -e "\nVérification de la configuration du Service HTTPD\n"
 	apachectl configtest
 	
+	echo -e "\nActivation du Service HTTPD\n"
 	systemctl enable httpd
 	systemctl start httpd
 	systemctl status httpd
