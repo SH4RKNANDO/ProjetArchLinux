@@ -5,8 +5,17 @@
 #//      Script d'installation des Service   //
 #//////////////////////////////////////////////
 
+
 JAIL_DIR="/home/jail"
 IPSERVER=$(hostname --ip-addresses)
+
+
+# Vérification des droits
+if [ "$EUID" -ne 0 ]
+  then echo -e "Veuillez démarrer le script en root !"
+  exit
+fi
+
 
 #///////////////////////////////// 
 #//         SERVICE SSH         //

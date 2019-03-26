@@ -12,6 +12,7 @@ GRUB_DISK="/dev/sde"
 IPSTATIC="10.0.0.39/24"
 IPROUTER="10.0.0.1"
 CHECKIP='y'
+HOSTNAME="arch-server"
 
 #////////////////////////////////// 
 #//    CONFIG BASIC SERVER       //
@@ -26,6 +27,7 @@ function ConfigBasic {
 	echo -e "\nBackup du fichier de configuration des langues\n"
 	cp -avr /etc/locale.gen /etc/locale.gen.bak
 	
+	echo "\nConfiguration des locales\n"
 	sed -i '/en_US.UTF-8/s/^#//g' /etc/locale.gen
 	sed -i '/fr_BE.UTF-8/s/^#//g' /etc/locale.gen
 	sed -i '/fr_BE ISO-8859-1/s/^#//g' /etc/locale.gen
@@ -36,14 +38,15 @@ function ConfigBasic {
 	export LANG=fr_BE.UTF-8
 	locale
 	
-	echo arch-server > /etc/hostname
+	echo "\nModification du Hostname\n"
+	echo $HOSTNAME > /etc/hostname
 	
-	# Add Sticky Bit on Partage
+	echo "\nAjout du Sticky Bit sur le répertoire /partage\n"
 	chmod -v 1660 /partage
 	
 	echo -e "\nSynchronisation de l'heure et du fuseaux Europe/Brussels\n"
 	ln -sfv /usr/share/zoneinfo/Europe/Brussels /etc/localtime
-	hwclock --systohc --utc	
+	hwclock --systohc --utc
 }
 
 function SetIpStatic {
@@ -67,7 +70,6 @@ Gateway='"$IPROUTER"'
 DNS=('1.1.1.1' '"$IPSTATIC"')" > $FILE
 
 	echo -e "\nActivation de l'addresse IP Static\n"
-	
 	netctl enable $NETWORK_INTERFACE
 }
 
@@ -77,7 +79,7 @@ function PacmanConfig {
 	cp -avr /etc/pacman.conf /etc/pacman.conf.bak
 	echo -e "\nConfiguration de pacman\n"
 	cp -avr file_config/pacman.conf /etc/pacman.conf
-	pacman -Syy
+	yes 'y' | pacman -Syy
 }
 
 function ConfigUser {
@@ -99,13 +101,13 @@ function GenerateRamdisk {
 }
 
 function InstallGrub {
-	echo -e "\nInstallation de grub dans le MBR\n"
+	echo -e "\nConfiguration de Grub2\n"
 	grub-mkconfig -o /boot/grub/grub.cfg
 	grub-install $GRUB_DISK --recheck
 	cp -avr file_config/install_grub /usr/bin/install_grub
-	chmod 755 /usr/bin/install_grub
+	chmod 755 -v /usr/bin/install_grub
 	
-	mkinitcpio -p linux	
+	echo -e "\nInstallation de Grub2 dans le MBR\n"
 	grub-mkconfig -o /boot/grub/grub.cfg
 	grub-install $GRUB_DISK --recheck
 }

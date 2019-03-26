@@ -14,7 +14,7 @@ MODULE_LIST="raid1 raid0 dm-mod"
 DISK_LIST="/dev/sda /dev/sdb /dev/sdc /dev/sdd /dev/sde"
 
 if [ "$EUID" -ne 0 ]
-  then echo -e "Please run as root"
+  then echo -e "Veuillez démarrer le script en root !"
   exit
 fi
 
