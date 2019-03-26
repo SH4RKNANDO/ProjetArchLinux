@@ -61,6 +61,9 @@ function InstallDir {
 			        powerline-fonts awesome-terminal-fonts mariadb-clients
 			        
 	yes 'o' | pacman -Rns arch-install-scripts
+	
+	echo -e "\nAjout  du groupe sshusers dans /etc/group\n"
+	cat /etc/group | egrep "sshusers" >> $JAIL_DIR/etc/group
 }
 
 function ServiceMountJail {
@@ -140,13 +143,16 @@ function InstallNFS {
 	systemctl start nfs-server
 	systemctl status nfs-server
 	
-	echo -e "\nTODO MAKE CONFIG !!!!!\n"
-	echo -e "\nTODO MAKE CONFIG !!!!!\n"
-	# TODO 
+	echo -e "\nConfiguration des entrées NFS dans le fichier /etc/exports\n"
+	SAMBAGUID=$(cat /etc/group | egrep "sambashare" | awk 'BEGIN { FS=":" } /1/ { print $3 }')
+	IPNFS=$(echo $IPSERVER | awk 'BEGIN { FS="." } /1/ { $4 ="*"} { print $1 "." $2 "." $3 "." $4}')
+	echo "/partage $IPNFS(rw,anongid=$SAMBAGUID,all_squash)" >> /etc/exports
+	exportfs -av
 	
-	# exportfs -av
-	# systemctl restart nfs-server
-	# systemctl status nfs-server
+	echo -e "\nActivation du Service NFS\n"
+	systemctl enable nfs-server
+	systemctl restart nfs-server
+	systemctl status nfs-server
 }
 
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////#///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -295,11 +301,11 @@ function RemountBoot {
 
 function main {
 	RemountBoot
+	InstallNtpd
 	ConfigSSH
 	InstallSamba
 	InstallNFS
 	InstallMysql
-	InstallNtpd
 	InstallHTTPD
 	InstallDNS
 }
