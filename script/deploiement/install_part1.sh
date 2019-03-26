@@ -97,13 +97,13 @@ function InstallSystem {
 	yes 'n' | pacman -Suy
 	
 	echo -e "\nInstallation du système\n"
-	pacstrap /mnt base net-tools zsh git htop zsh-autosuggestions zsh-completions zshdb \
+	pacstrap -c --cachedir /var/cache/pacman/pkg /mnt base net-tools zsh git htop zshdb \
 	              zsh-history-substring-search zsh-lovers zsh-syntax-highlighting zssh  \
 	              zsh-theme-powerlevel9k powerline-fonts awesome-terminal-fonts acpi    \
 	              grub freetype2 fuse2 libisoburn mtools dosfstools openssh xorg-xauth  \
 	              x11-ssh-askpass samba nfs-utils python mkinitcpio-nfs-utils mariadb   \
 	              perl-dbd-mysql galera rsync ntp apache curl bind geoip-database-extra \
-	              arch-install-scripts
+	              arch-install-scripts zsh-completions zsh-autosuggestions
 	
 	echo -e "\nGeneration du fichier FSTAB\n"
 	genfstab -U -p /mnt > /mnt/etc/fstab
