@@ -20,3 +20,8 @@ Obtenir un accès ssh
 <span>bash install_part1.sh <br></span>
 
 notes : La partie2 est appelée par la partie1
+
+## Lancement du déploiement partie 3:
+
+<span>git clone https://github.com/SH4RKNANDO/ProjetArchLinux.git</span> 
+<span>cd ProjetArchLinux/script/deploiement/</span>
