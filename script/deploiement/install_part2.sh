@@ -114,9 +114,10 @@ function InstallGrub {
 
 function SecuFstab {
 
+	echo -e "\nBackup du fichier FSTAB\n"
 	cp -avr /etc/fstab /etc/fstab.bak
 	
-	echo "Sécurisation des partitions"
+	echo -e "\nSécurisation des partitions\n"
 	
 	# Root Parition
 	cat /etc/fstab |  egrep root | awk '{ print }' > /etc/fstab2
@@ -140,7 +141,7 @@ function SecuFstab {
 	cat /etc/fstab |  egrep swap | awk '$4="defaults,nodev,nosuid,noexec,pri=-2" { print }' >> /etc/fstab2
 	
 	cat /etc/fstab2 > /etc/fstab
-	rm -rfv /etc/fstab2
+	rm -rf /etc/fstab2
 	
 	mount -a
 }
@@ -155,6 +156,7 @@ function InstallZsh {
 	chown -Rv $USER_NAME:users /home/$USER_NAME/.zshrc
 	
 	# copies du fichier dans le skel
+	echo -e "\nCréation d'une copie dans le skel\n"
 	cp -avr file_config/.zshrc /etc/skel
 	cp -ar ~/.oh-my-zsh /etc/skel	
 }
