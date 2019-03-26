@@ -12,6 +12,7 @@ MODULE_LIST="raid1 raid0 dm-mod"
 
 # DISK CONFIG
 DISK_LIST="$(ls /dev/sd* | awk '{ print $1 }')"
+LABEL_LIST="PART_MBR PART_HOME PART_ROOT PART_SRV PART_PARTAGE PART_TMP PART_SWAP"
 
 if [ "$EUID" -ne 0 ]
   then echo -e "Veuillez démarrer le script en root !"
