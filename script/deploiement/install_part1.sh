@@ -86,6 +86,7 @@ function MountPartition {
 	mount -v /dev/mapper/raid10-lv_partage /mnt/partage
 	mount -v /dev/mapper/raid10-lv_tmp /mnt/tmp
 	swapon /dev/mapper/raid10-lv_swap 
+	echo -e "\n\n"
 }
 
 function InstallSystem {
