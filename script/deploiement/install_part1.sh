@@ -110,7 +110,6 @@ function InstallSystem {
 	mount -v --bind /run/lvm /mnt/hostlvm
 }
 
-
 function CheckServer {
 
 	echo -e "\nVerification du raid\n"
