@@ -33,4 +33,3 @@ echo -e "\n---------------------------\n"
 echo -e "\nVerification de la langue\n"
 locale
 echo "\n---------------------------\n"
-
