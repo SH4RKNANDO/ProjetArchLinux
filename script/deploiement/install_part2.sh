@@ -38,10 +38,10 @@ function ConfigBasic {
 	export LANG=fr_BE.UTF-8
 	locale
 	
-	echo "\nModification du Hostname\n"
+	echo -e "\nModification du Hostname\n"
 	echo $HOSTNAME > /etc/hostname
 	
-	echo "\nAjout du Sticky Bit sur le répertoire /partage\n"
+	echo -e "\nAjout du Sticky Bit sur le répertoire /partage\n"
 	chmod -v 1660 /partage
 	
 	echo -e "\nSynchronisation de l'heure et du fuseaux Europe/Brussels\n"
@@ -55,9 +55,11 @@ function SetIpStatic {
 	NETWORK_INTERFACE=$(echo "$NETWORK_INTERFACE" | awk '{ print $1 }')
 	
 	echo -e "\nVoici un Résumé de votre interface Réseaux\n"
-	echo -e "Network Interface : $NETWORK_INTERFACE"
-	echo -e "IP : $IPSTATIC"
-	echo -e "Gateway : $IPROUTER\n"
+	echo -e "----------------------------------------------"
+	echo -e "|  Network Interface : $NETWORK_INTERFACE"
+	echo -e "|  IP : $IPSTATIC"
+	echo -e "|  Gateway : $IPROUTER"
+	echo -e "----------------------------------------------\n\n"
 	
 	FILE="/etc/netctl/$NETWORK_INTERFACE"
 	
