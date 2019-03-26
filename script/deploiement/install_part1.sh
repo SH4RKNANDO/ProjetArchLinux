@@ -96,7 +96,8 @@ function InstallSystem {
 	              zsh-history-substring-search zsh-lovers zsh-syntax-highlighting zssh  \
 	              zsh-theme-powerlevel9k powerline-fonts awesome-terminal-fonts acpi    \
 	              grub freetype2 fuse2 libisoburn mtools dosfstools openssh xorg-xauth  \
-	              x11-ssh-askpass 
+	              x11-ssh-askpass samba nfs-utils python mkinitcpio-nfs-utils mariadb   \
+	              perl-dbd-mysql galera rsync ntp apache curl bind geoip-database-extra
 	
 	echo -e "\nGeneration du fichier FSTAB\n"
 	genfstab -U -p /mnt > /mnt/etc/fstab
@@ -106,59 +107,33 @@ function InstallSystem {
 
 function CheckServer {
 
-	echo
-	echo "Verification du raid"
-	echo
+	echo -e "\nVerification du raid\n"
 	cat /proc/mdstat
-	echo
-	echo "---------------------------"
+	echo -e "\n---------------------------\n"
 
-
-	echo
-	echo "Vérification du paritionnement"
-	echo
+	echo -e "\nVérification du paritionnement\n"
 	lsblk
-	echo
-	echo "---------------------------"
+	echo -e "\n---------------------------\n"
 
-	echo
-	echo "Verification de l'espace disponible"
-	echo
+	echo -e "\nVerification de l'espace disponible\n"
 	df -h
-	echo
-	echo "---------------------------"
+	echo -e "\n---------------------------\n"
 
-
-	echo
-	echo "Vérification des PV"
-	echo
+	echo -e "\nVérification des PV\n"
 	pvs
-	echo
-	echo "---------------------------"
+	echo -e "\n---------------------------\n"
 
-
-	echo
-	echo "Vérification des VG"
-	echo
+	echo -e "\nVérification des VG\n"
 	vgs
-	echo
-	echo "---------------------------"
+	echo -e "\n---------------------------\n"
 
-
-	echo
-	echo "Vérification des LV"
-	echo
+	echo -e "\nVérification des LV\n"
 	lvs
-	echo
-	echo "---------------------------"
-
-
-	echo
-	echo "Verification de la RAM"
-	echo
+	echo -e "\n---------------------------\n"
+	
+	echo -e "\nVerification de la RAM"
 	free -h
-	echo
-	echo "---------------------------"
+	echo -e "\n---------------------------\n"
 }
 
 function LaunchScript {

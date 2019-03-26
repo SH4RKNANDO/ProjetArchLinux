@@ -124,8 +124,7 @@ function ConfigSSH {
 #/////////////////////////////////
 
 function InstallSamba {
-	echo -e "\n\nInstallation de Samba\n"
-	yes 'o' | pacman -S samba
+	echo -e "\n\nConfiguration de Samba\n"
 	cp -avr file_config/smb.conf /etc/samba/smb.conf
 	
 	echo -e "\nActivation de Samba\n"
@@ -146,13 +145,8 @@ function InstallSamba {
 #/////////////////////////////////
 
 function InstallNFS {
-	echo -e "\n\nInstallation de NFS\n"
-	yes 'o' | pacman -S nfs-utils python mkinitcpio-nfs-utils
-	
-	echo -e "\nActivation du Service de NFS\n"
-	systemctl enable nfs-server
+	echo -e "\nDémarrage du Service de NFS\n"
 	systemctl start nfs-server
-	systemctl status nfs-server
 	
 	echo -e "\nConfiguration des entrées NFS dans le fichier /etc/exports\n"
 	SAMBAGUID=$(cat /etc/group | egrep "sambashare" | awk 'BEGIN { FS=":" } /1/ { print $3 }')
@@ -176,10 +170,7 @@ function InstallNFS {
 #/////////////////////////////////
 
 function InstallMysql {
-	echo -e "\n\nInstallation de Mysql\n"
-	yes 'o' | pacman -S mariadb perl-dbd-mysql galera rsync
-	
-	echo -e "\nConfiguration du moteur Mysql\n"
+	echo -e "\n\nConfiguration du moteur Mysql\n"
 	mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 	
 	echo "[client]
@@ -211,9 +202,6 @@ default-character-set = latin1" >> /etc/mysql/my.cnf
 #/////////////////////////////////
 
 function InstallNtpd {
-	echo -e "\n\nInstallation de Ntpd\n"
-	yes 'o' | pacman -S ntp
-	
 	echo -e "\nBackup du Fichier d'installation\n"
 	cp -avr /etc/ntp.conf /etc/ntp.conf.bak
 	
@@ -245,9 +233,6 @@ server 3.be.pool.ntp.org" >> /etc/ntp.conf
 #/////////////////////////////////
 
 function InstallHTTPD {
-	echo -e "\nInstallation de HTTPD\n"
-	yes 'o' | pacman -S apache curl
-	
 	echo -e "\nBackup du fichier de configuration de HTTPD\n"
 	cp -avr /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.bak
 	
@@ -272,8 +257,6 @@ function InstallHTTPD {
 	systemctl status httpd
 }
 
-# AH00534: httpd: Configuration error: No MPM loaded.
-
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////#///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -282,9 +265,6 @@ function InstallHTTPD {
 #/////////////////////////////////
 
 function InstallDNS {
-	echo -e "\nInstallation de DNS (BIND9)\n"
-	yes 'o' | pacman -S bind geoip-database-extra
-	
 	echo -e "\nBackup du fichier de configuration de BIND9\n"
 	cp -avr /etc/named.conf  /etc/named.conf.back
 	cp -avr file_config/named.conf /etc/named.conf
