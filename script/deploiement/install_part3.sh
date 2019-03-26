@@ -61,7 +61,6 @@ function CreateDirectory {
 }
 
 function InstallDir {
-	yes 'o' | pacman -S arch-install-scripts
 	echo -e "\n\nCreation de la prison ssh jail\n"
 	pacstrap $JAIL_DIR bash nano which tar less grep zsh coreutils \
 			        zsh-autosuggestions zsh-completions zshdb       \
@@ -290,6 +289,7 @@ function RemountBoot {
 
 
 function main {
+	start=`date +%s`
 	RemountBoot
 	InstallNtpd
 	ConfigSSH
@@ -298,6 +298,9 @@ function main {
 	InstallMysql
 	InstallHTTPD
 	InstallDNS
+	end=`date +%s`
+	runtime=$((end-start))
+	echo "$runtime s"
 }
 
 

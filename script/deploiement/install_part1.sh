@@ -99,7 +99,8 @@ function InstallSystem {
 	              zsh-theme-powerlevel9k powerline-fonts awesome-terminal-fonts acpi    \
 	              grub freetype2 fuse2 libisoburn mtools dosfstools openssh xorg-xauth  \
 	              x11-ssh-askpass samba nfs-utils python mkinitcpio-nfs-utils mariadb   \
-	              perl-dbd-mysql galera rsync ntp apache curl bind geoip-database-extra
+	              perl-dbd-mysql galera rsync ntp apache curl bind geoip-database-extra \
+	              arch-install-scripts
 	
 	echo -e "\nGeneration du fichier FSTAB\n"
 	genfstab -U -p /mnt > /mnt/etc/fstab
@@ -133,7 +134,7 @@ function CheckServer {
 	lvs
 	echo -e "\n---------------------------\n"
 	
-	echo -e "\nVerification de la RAM"
+	echo -e "\nVerification de la RAM\n"
 	free -h
 	echo -e "\n---------------------------\n"
 }
@@ -150,7 +151,6 @@ function LaunchScript {
 	chmod +x -v install_part3.sh
 	
 	bash install_part2.sh
-	
 EOF
 }
 
@@ -171,7 +171,7 @@ function main {
 	rm -rfv  /mnt/hostlvm
 	end=`date +%s`
 	runtime=$((end-start))
-	echo $runtime
+	echo "$runtime s"
 	reboot
 }
 
