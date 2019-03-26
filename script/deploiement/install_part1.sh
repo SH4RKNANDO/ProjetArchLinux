@@ -155,6 +155,7 @@ EOF
 }
 
 function main {
+	start=`date +%s`
 	LoadModules
 	CreatePartition
 	CreateRaid
@@ -168,6 +169,9 @@ function main {
 	# Cleanning
 	umount -Rv /mnt/hostlvm
 	rm -rfv  /mnt/hostlvm
+	end=`date +%s`
+	runtime=$((end-start))
+	echo $runtime
 	reboot
 }
 
