@@ -7,6 +7,9 @@
 
 # ///////////////////// Variables de configuration ////////////////////////////
 
+# Reset Bash Count 
+SECONDS=0
+
 # Module CONFIG
 MODULE_LIST="raid1 raid0 dm-mod"
 
@@ -155,7 +158,6 @@ EOF
 }
 
 function main {
-	start=`date +%s`
 	LoadModules
 	CreatePartition
 	CreateRaid
@@ -169,9 +171,10 @@ function main {
 	# Cleanning
 	umount -Rv /mnt/hostlvm
 	rm -rfv  /mnt/hostlvm
-	end=`date +%s`
-	runtime=$((end-start))
-	echo "$runtime s"
+
+	ELAPSED="Elapsed: $(($SECONDS / 3600))hrs $((($SECONDS / 60) % 60))min $(($SECONDS % 60))sec"
+	echo $ELAPSED
+
 	reboot
 }
 

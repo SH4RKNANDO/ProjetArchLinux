@@ -5,6 +5,8 @@
 #//      Script d'installation des Service   //
 #//////////////////////////////////////////////
 
+# Reset Bash Count 
+SECONDS=0
 
 JAIL_DIR="/home/jail"
 IPSERVER=$(hostname --ip-addresses)
@@ -289,7 +291,6 @@ function RemountBoot {
 
 
 function main {
-	start=`date +%s`
 	RemountBoot
 	InstallNtpd
 	ConfigSSH
@@ -298,9 +299,8 @@ function main {
 	InstallMysql
 	InstallHTTPD
 	InstallDNS
-	end=`date +%s`
-	runtime=$((end-start))
-	echo "$runtime s"
+	ELAPSED="Elapsed: $(($SECONDS / 3600))hrs $((($SECONDS / 60) % 60))min $(($SECONDS % 60))sec"
+	echo $ELAPSED
 }
 
 
