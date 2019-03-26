@@ -168,7 +168,7 @@ function LaunchScript {
 	cd /mnt
 	git clone https://github.com/SH4RKNANDO/ProjetArchLinux.git
 	cd ProjetArchLinux/script/deploiement/
-	
+	groupadd sshusers
 	chmod +x -v install_part2.sh
 	chmod +x -v install_part3.sh
 	

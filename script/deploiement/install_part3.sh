@@ -190,7 +190,7 @@ server 1.be.pool.ntp.org
 server 2.be.pool.ntp.org
 server 3.be.pool.ntp.org" >> /etc/ntp.conf
 		 
-	echo "\nVeuillez entrer l'heure et la date du système (2019-03-20 14:45:30) :"
+	echo -e "\nVeuillez entrer l'heure et la date du système (2019-03-20 14:45:30) :"
 	read DATE
 	timedatectl set-time "$DATE"
 	timedatectl set-timezone Europe/Brussels
