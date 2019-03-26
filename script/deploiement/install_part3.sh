@@ -250,10 +250,9 @@ function InstallHTTPD {
 	
 	echo -e "\nBackup du fichier de configuration de HTTPD\n"
 	cp -avr /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.bak
-	cp -avr file_config/httpd.conf /etc/httpd/conf/httpd.conf
 	
 	echo -e "\nModification de l'IP dans le fichier de configuration de HTTPD\n"
-	cat httpd.conf | sed -e "s/ServerName 10.0.0.36/ServerName $IPSERVER/" > /etc/httpd/conf/httpd.conf
+	cat  file_config/httpd.conf | sed -e "s/ServerName 10.0.0.36/ServerName $IPSERVER/" > /etc/httpd/conf/httpd.conf
 
 	
 	echo -e "\nBackup du fichier de configuration par defaut de HTTPD\n"
@@ -273,6 +272,7 @@ function InstallHTTPD {
 	systemctl status httpd
 }
 
+# AH00534: httpd: Configuration error: No MPM loaded.
 
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////#///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -282,14 +282,14 @@ function InstallHTTPD {
 #/////////////////////////////////
 
 function InstallDNS {
-	echo -e "\nInstallation de DNS (BIND9) \n"
+	echo -e "\nInstallation de DNS (BIND9)\n"
 	yes 'o' | pacman -S bind geoip-database-extra
 	
 	echo -e "\nBackup du fichier de configuration de BIND9\n"
 	cp -avr /etc/named.conf  /etc/named.conf.back
 	cp -avr file_config/named.conf /etc/named.conf
 
-	echo -e "\Activation du Service BIND9\n"
+	echo -e "\nActivation du Service BIND9\n"
 	systemctl start named.service
 	systemctl enable named.service
 	systemctl status named.service
