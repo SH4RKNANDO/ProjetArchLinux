@@ -16,7 +16,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-s
+
 #///////////////////////////////// 
 #//         SERVICE SSH         //
 #/////////////////////////////////
@@ -157,7 +157,7 @@ function InstallNFS {
 	echo -e "\nConfiguration des entrées NFS dans le fichier /etc/exports\n"
 	SAMBAGUID=$(cat /etc/group | egrep "sambashare" | awk 'BEGIN { FS=":" } /1/ { print $3 }')
 	IPNFS=$(echo $IPSERVER | awk 'BEGIN { FS="." } /1/ { $4 ="*"} { print $1 "." $2 "." $3 "." $4}')
-	echo "/partage $IPNFS(rw,anongid=$SAMBAGUID,all_squash)" >> /etc/exports
+	echo "/partage $IPNFS(rw,anongid=$SAMBAGUID,all_squash,subtree_check)" >> /etc/exports
 	exportfs -av
 	
 	echo -e "\nActivation du Service NFS\n"
