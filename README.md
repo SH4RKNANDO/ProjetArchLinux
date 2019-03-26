@@ -11,13 +11,13 @@ Obtenir un accès ssh
 <span>systemctl start sshd <br></span>
 <span>ifconfig<br></span>
 
-## Cloner le dépot :
+## Lancement du déploiement partie 1:
+
+<span>Cloner le dépot :</span>
 
 <span>yes "n" | pacman -Sy <br></span>
 <span>yes "y" | pacman -S git <br></span>
 <span>git clone https://github.com/SH4RKNANDO/ProjetArchLinux.git <br></span>
-
-## Lancement du déploiement partie 1:
 
 <span>cd ProjetArchLinux/script/deploiement/ <br></span>
 <span>bash install_part1.sh <br></span>
