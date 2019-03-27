@@ -5,11 +5,14 @@
 #//      Script d'installation des Service   //
 #//////////////////////////////////////////////
 
+# DEBUG =1 => ON | DEBUG =0 => OFF
+DEBUG=0 
+
 # Reset Bash Count 
 SECONDS=0
-
 JAIL_DIR="/home/jail"
 IPSERVER=$(hostname --ip-addresses)
+
 
 
 # Vérification des droits
@@ -18,6 +21,14 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+function top {
+
+clear
+echo  -e"#//////////////////////////////////////////////
+	     #//        DEVELOPPE PAR JORDAN B.           //
+	     #//      Script d'installation des Service   //
+	     #//////////////////////////////////////////////\n\n"
+}
 
 #///////////////////////////////// 
 #//         SERVICE SSH         //
@@ -36,7 +47,11 @@ function InstallSSH {
 	cp -avr file_config/sshd_config /etc/sshd_config	
 	
 	systemctl restart sshd
-	systemctl status sshd
+	
+	if [ $DEBUG -eq 1 ]; then 
+		systemctl status sshd
+	fi
+	
 	echo -e "\n\n"
 }
 
@@ -46,7 +61,6 @@ function InstallSSH {
 
 # create Jail Directory
 function CreateDirectory {
-
 	echo -e "\nCréation des répertoires\n"
 	mkdir -pv $JAIL_DIR/{home,etc/skel}
 
@@ -77,7 +91,6 @@ function InstallDir {
 }
 
 function ServiceMountJail {
-	
 	echo -e "\n\nCreation su service jail_mount.service\n"
 	cp -avr file_config/jail_mount /usr/bin/jail_mount
 	chmod -v 755 /usr/bin/jail_mount
@@ -88,6 +101,10 @@ function ServiceMountJail {
 	systemctl daemon-reload
 	systemctl enable jail_mount.service
 	systemctl start jail_mount.service 
+	
+	if [ $DEBUG -eq 1 ]; then 
+		systemctl status jail_mount 
+	fi
 }
 
 function SshJailPerm {
@@ -109,6 +126,7 @@ EOT
 }
 
 function ConfigSSH {
+	top
 	InstallSSH
 	CreateDirectory
 	InstallDir
@@ -125,13 +143,17 @@ function ConfigSSH {
 #/////////////////////////////////
 
 function InstallSamba {
+	top
 	echo -e "\n\nConfiguration de Samba\n"
 	cp -avr file_config/smb.conf /etc/samba/smb.conf
 	
 	echo -e "\nActivation de Samba\n"
 	systemctl enable nmb smb
 	systemctl start nmb smb
-	systemctl status nmb smb
+	
+	if [ $DEBUG -eq 1 ]; then 
+		systemctl status nmb smb
+	fi
 	
 	echo -e "\nAjout de l'utilisateur admin a samba\n"
 	yes $USER_PASSWORD | smbpasswd -a admin
@@ -146,6 +168,7 @@ function InstallSamba {
 #/////////////////////////////////
 
 function InstallNFS {
+	top
 	echo -e "\nDémarrage du Service de NFS\n"
 	systemctl start nfs-server
 	
@@ -158,7 +181,11 @@ function InstallNFS {
 	echo -e "\nActivation du Service NFS\n"
 	systemctl enable nfs-server
 	systemctl restart nfs-server
-	systemctl status nfs-server
+	
+	
+	if [ $DEBUG -eq 1 ]; then 
+		systemctl status nfs-server
+	fi
 }
 
 
@@ -171,6 +198,7 @@ function InstallNFS {
 #/////////////////////////////////
 
 function InstallMysql {
+	top
 	echo -e "\n\nConfiguration du moteur Mysql\n"
 	mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 	
@@ -187,8 +215,11 @@ default-character-set = latin1" >> /etc/mysql/my.cnf
 	echo -e "\nActivation du Service MySQL\n"
 	systemctl enable mysqld # Démarrer le service au démarrage
 	systemctl start mysqld  # Redémarrer le service
-	systemctl status mysqld # Vérification
 	
+	if [ $DEBUG -eq 1 ]; then 
+		systemctl status mysqld # Vérification
+	fi
+
 	echo -e "\nSécurisation de base de MySQL\n"
 	mysql_secure_installation
 }
@@ -203,6 +234,7 @@ default-character-set = latin1" >> /etc/mysql/my.cnf
 #/////////////////////////////////
 
 function InstallNtpd {
+	top
 	echo -e "\nBackup du Fichier d'installation\n"
 	cp -avr /etc/ntp.conf /etc/ntp.conf.bak
 	
@@ -219,7 +251,10 @@ server 3.be.pool.ntp.org" >> /etc/ntp.conf
 	
 	systemctl start ntpd
 	systemctl enable ntpd
-	systemctl status ntpd
+	
+	if [ $DEBUG -eq 1 ]; then 
+		systemctl status ntpd
+	fi
 	
 	ntptime
 }
@@ -234,6 +269,7 @@ server 3.be.pool.ntp.org" >> /etc/ntp.conf
 #/////////////////////////////////
 
 function InstallHTTPD {
+	top
 	echo -e "\nBackup du fichier de configuration de HTTPD\n"
 	cp -avr /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.bak
 	
@@ -255,7 +291,10 @@ function InstallHTTPD {
 	echo -e "\nActivation du Service HTTPD\n"
 	systemctl enable httpd
 	systemctl start httpd
-	systemctl status httpd
+	
+	if [ $DEBUG -eq 1 ]; then 
+		systemctl status httpd
+	fi
 }
 
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////#///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -266,14 +305,18 @@ function InstallHTTPD {
 #/////////////////////////////////
 
 function InstallDNS {
+	top
 	echo -e "\nBackup du fichier de configuration de BIND9\n"
 	cp -avr /etc/named.conf  /etc/named.conf.back
 	cp -avr file_config/named.conf /etc/named.conf
 
 	echo -e "\nActivation du Service BIND9\n"
-	systemctl start named.service
-	systemctl enable named.service
-	systemctl status named.service
+	systemctl start named
+	systemctl enable named
+	
+	if [ $DEBUG -eq 1 ]; then 
+		systemctl status named
+	fi
 	
 	echo -e "\nVerification du DNS\n"
 	named-checkconf /etc/named.conf
@@ -291,6 +334,7 @@ function RemountBoot {
 
 
 function main {
+	top
 	RemountBoot
 	InstallNtpd
 	ConfigSSH
@@ -305,4 +349,3 @@ function main {
 
 
 main
-
