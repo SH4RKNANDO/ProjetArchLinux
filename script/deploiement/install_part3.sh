@@ -368,6 +368,29 @@ function InstallDNS {
 
 
 
+#///////////////////////////////// 
+#//       SERVICE DNS           //
+#/////////////////////////////////
+
+function InstallVSFTPD {
+	top
+	echo -e "\nBackup du fichier de configuration de VSFTPD\n"
+	cp -avr /etc/vsftpd.conf  /etc/vsftpd.conf.back
+	cp -avr file_config/vsftpd.conf /etc/vsftpd.conf
+
+	echo -e "\nActivation du Service BIND9\n"
+	systemctl start named
+	systemctl enable named
+	
+	if [ $DEBUG -eq 1 ]; then 
+		systemctl status named
+	fi
+	
+	echo -e "\nVerification du DNS\n"
+	named-checkconf /etc/named.conf
+	named -g -p 53
+}
+
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////#///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function RemountBoot {
@@ -387,6 +410,7 @@ function main {
 	InstallMysql
 	InstallHTTPD
 	InstallDNS
+	InstallVSFTPD
 	ELAPSED="Elapsed: $(($SECONDS/3600))hrs $((($SECONDS/60) % 60))min $(($SECONDS % 60))sec"
 	echo $ELAPSED
 }

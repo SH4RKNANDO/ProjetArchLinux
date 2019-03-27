@@ -103,7 +103,7 @@ function InstallSystem {
 	              grub freetype2 fuse2 libisoburn mtools dosfstools openssh xorg-xauth  \
 	              x11-ssh-askpass samba nfs-utils python mkinitcpio-nfs-utils mariadb   \
 	              perl-dbd-mysql galera rsync ntp apache curl bind geoip-database-extra \
-	              arch-install-scripts 
+	              arch-install-scripts vsftpd
 	
 	echo -e "\nGeneration du fichier FSTAB\n"
 	genfstab -U -p /mnt > /mnt/etc/fstab
