@@ -272,16 +272,21 @@ driftfile /var/lib/ntp/ntp.drift
 	echo -e "\nSynchronisation du temps\n"
 	hwclock --systohc --utc
 	ntpdate -qu 0.be.pool.ntp.org
-	sleep 1 
 	timedatectl set-timezone Europe/Brussels
 	timedatectl set-ntp true
+	ntptime
 	
 	systemctl restart ntpd
 	
 	if [ $DEBUG -eq 1 ]; then 
 		systemctl status ntpd
-		ntptime
 	fi
+	
+	hwclock --systohc --utc
+	ntpdate -qu 0.be.pool.ntp.org
+	timedatectl set-timezone Europe/Brussels
+	timedatectl set-ntp true
+	ntptime
 }
 
 
