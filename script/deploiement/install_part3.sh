@@ -367,14 +367,14 @@ function RemountBoot {
 
 function main {
 	top
-	#RemountBoot
+	RemountBoot
 	InstallNtpd
-	#ConfigSSH
-	#InstallSamba
-	#InstallNFS
-	#InstallMysql
-	#InstallHTTPD
-	#InstallDNS
+	ConfigSSH
+	InstallSamba
+	InstallNFS
+	InstallMysql
+	InstallHTTPD
+	InstallDNS
 	ELAPSED="Elapsed: $(($SECONDS / 3600))hrs $((($SECONDS / 60) % 60))min $(($SECONDS % 60))sec"
 	echo $ELAPSED
 }
