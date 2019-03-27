@@ -24,7 +24,7 @@ fi
 function top {
 
 clear
-echo  -e"#//////////////////////////////////////////////
+echo -e "#//////////////////////////////////////////////
 	     #//        DEVELOPPE PAR JORDAN B.           //
 	     #//      Script d'installation des Service   //
 	     #//////////////////////////////////////////////\n\n"
@@ -238,24 +238,50 @@ function InstallNtpd {
 	echo -e "\nBackup du Fichier d'installation\n"
 	cp -avr /etc/ntp.conf /etc/ntp.conf.bak
 	
-	echo "# Configuration du Pool NTP
+	echo "# Please consider joining the pool:
+#
+#     http://www.pool.ntp.org/join.html
+#
+# For additional information see:
+# - https://wiki.archlinux.org/index.php/Network_Time_Protocol_daemon
+# - http://support.ntp.org/bin/view/Support/GettingStarted
+# - the ntp.conf man page
+
+# Associate to Arch's NTP pool
 server 0.be.pool.ntp.org
 server 1.be.pool.ntp.org
 server 2.be.pool.ntp.org
-server 3.be.pool.ntp.org" >> /etc/ntp.conf
-		 
+server 3.be.pool.ntp.org
+
+
+# By default, the server allows:
+# - all queries from the local host
+# - only time queries from remote hosts, protected by rate limiting and kod
+restrict default kod limited nomodify nopeer noquery notrap
+restrict 127.0.0.1
+restrict ::1
+
+# Location of drift file
+driftfile /var/lib/ntp/ntp.drift
+# Configuration du Pool NTP" > /etc/ntp.conf
 	
+	echo -e "\nActivation du Service NTPD\n"
 	systemctl start ntpd
 	systemctl enable ntpd
 	
+	echo -e "\nSynchronisation du temps\n"
+	hwclock --systohc --utc
+	ntpdate -qu 0.be.pool.ntp.org
+	sleep 1 
+	timedatectl set-timezone Europe/Brussels
+	timedatectl set-ntp true
+	
+	systemctl restart ntpd
+	
 	if [ $DEBUG -eq 1 ]; then 
 		systemctl status ntpd
+		ntptime
 	fi
-	
-	timedatectl set-ntp true
-	timedatectl set-timezone Europe/Brussels
-	
-	ntptime
 }
 
 
