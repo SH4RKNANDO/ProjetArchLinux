@@ -8,11 +8,9 @@
 # DEBUG =1 => ON | DEBUG =0 => OFF
 DEBUG=0
 
-# Reset Bash Count 
-SECONDS=0
 JAIL_DIR="/home/jail"
 IPSERVER=$(hostname --ip-addresses)
-
+MYSQL_ROOT_PASSWORD="arch-server"
 
 
 # Vérification des droits
@@ -22,12 +20,12 @@ if [ "$EUID" -ne 0 ]
 fi
 
 function top {
-
 clear
-echo -e "#//////////////////////////////////////////////
-	     #//        DEVELOPPE PAR JORDAN B.           //
-	     #//      Script d'installation des Service   //
-	     #//////////////////////////////////////////////\n\n"
+echo -e "
+		#//////////////////////////////////////////////
+		#//        DEVELOPPE PAR JORDAN B.           //
+		#//      Script d'installation des Service   //
+		#//////////////////////////////////////////////\n\n"
 }
 
 #///////////////////////////////// 
@@ -221,7 +219,16 @@ default-character-set = latin1" >> /etc/mysql/my.cnf
 	fi
 
 	echo -e "\nSécurisation de base de MySQL\n"
-	mysql_secure_installation
+	mysql_secure_installation <<EOF
+
+y
+$MYSQL_ROOT_PASSWORD
+$MYSQL_ROOT_PASSWORD
+y
+y
+y
+y
+EOF
 }
 
 
@@ -271,7 +278,7 @@ driftfile /var/lib/ntp/ntp.drift
 	
 	echo -e "\nSynchronisation du temps\n"
 	hwclock --systohc --utc
-	ntpdate -qu 0.be.pool.ntp.org
+	ntpdate -qu 0.be.pool.ntp.org > /dev/null
 	timedatectl set-timezone Europe/Brussels
 	timedatectl set-ntp true
 	
@@ -287,8 +294,12 @@ driftfile /var/lib/ntp/ntp.drift
 	timedatectl set-timezone Europe/Brussels
 	timedatectl set-ntp true
 	sleep 1
+	
+	echo ""
 	ntptime
+	echo ""
 	timedatectl
+	echo ""
 }
 
 
@@ -366,6 +377,7 @@ function RemountBoot {
 
 
 function main {
+	SECONDS=0 	# Reset Bash Count 
 	top
 	RemountBoot
 	InstallNtpd
@@ -375,7 +387,7 @@ function main {
 	InstallMysql
 	InstallHTTPD
 	InstallDNS
-	ELAPSED="Elapsed: $(($SECONDS / 3600))hrs $((($SECONDS / 60) % 60))min $(($SECONDS % 60))sec"
+	ELAPSED="Elapsed: $(($SECONDS/3600))hrs $((($SECONDS/60) % 60))min $(($SECONDS % 60))sec"
 	echo $ELAPSED
 }
 
