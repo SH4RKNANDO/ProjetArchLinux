@@ -278,6 +278,7 @@ driftfile /var/lib/ntp/ntp.drift
 	
 	systemctl restart ntpd
 	
+	
 	if [ $DEBUG -eq 1 ]; then 
 		systemctl status ntpd
 	fi
