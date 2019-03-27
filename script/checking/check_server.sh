@@ -32,4 +32,62 @@ echo -e "\n---------------------------\n"
 
 echo -e "\nVerification de la langue\n"
 locale
-echo "\n---------------------------\n"
+echo -e "\n---------------------------"
+echo -e "---------------------------\n\n"
+
+#////////////////////////////////////////////////////////////////////
+#////////////////////////////////////////////////////////////////////
+
+echo -e "\nVerification du service NTPD\n"
+systemctl status ntpd
+echo
+timedatectl
+echo
+ntptime
+echo -e "\n\n---------------------------\n"
+
+
+echo -e "\nVerification du service SSHD\n"
+systemctl status sshd
+echo -e "\n\n---------------------------\n"
+
+
+echo -e "\nVerification du service HTTPD\n"
+systemctl status httpd
+echo -e "\nVérification de la configuration du Service HTTPD\n"
+apachectl configtest
+echo -e "\n\n---------------------------\n"
+
+
+echo -e "\nVerification du Service DNS\n"
+systemctl status named
+echo
+named -g -p 53
+echo -e "\n\nVerification des zone DNS\n"
+named-checkconf /etc/named.conf
+echo -e "\n---------------------------\n"
+
+
+echo -e "\nVerification du Service NFS\n"
+systemctl status nfs-server
+echo 
+cat /etc/export
+echo
+echo -e "\n---------------------------\n"
+
+
+echo -e "\nVerification du Service SAMBA\n"
+systemctl status nmb smb
+echo
+cat /etc/smb.conf
+echo
+echo -e "\n---------------------------\n"
+
+
+echo -e "\nVerification du Service MYSQL\n"
+systemctl status nmb smb
+echo
+cat /etc/smb.conf
+echo
+echo -e "\n---------------------------\n"
+
