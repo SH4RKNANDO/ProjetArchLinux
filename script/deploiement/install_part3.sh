@@ -288,6 +288,7 @@ driftfile /var/lib/ntp/ntp.drift
 	timedatectl set-ntp true
 	sleep 1
 	ntptime
+	timedatectl
 }
 
 
