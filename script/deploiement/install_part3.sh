@@ -332,7 +332,7 @@ function RemountBoot {
 
 function main {
 	top
-	RemountBoot
+	#RemountBoot
 	InstallNtpd
 	#ConfigSSH
 	#InstallSamba
