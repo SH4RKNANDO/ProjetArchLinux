@@ -6,7 +6,7 @@
 #//////////////////////////////////////////////
 
 # DEBUG =1 => ON | DEBUG =0 => OFF
-DEBUG=0 
+DEBUG=0
 
 # Reset Bash Count 
 SECONDS=0
@@ -244,13 +244,10 @@ server 1.be.pool.ntp.org
 server 2.be.pool.ntp.org
 server 3.be.pool.ntp.org" >> /etc/ntp.conf
 		 
-	echo -e "\nVeuillez entrer l'heure et la date du système (2019-03-20 14:45:30) :"
-	read DATE
-	timedatectl set-time "$DATE"
+	timedatectl set-ntp true
 	timedatectl set-timezone Europe/Brussels
 	
 	systemctl start ntpd
-	systemctl enable ntpd
 	
 	if [ $DEBUG -eq 1 ]; then 
 		systemctl status ntpd
