@@ -244,14 +244,16 @@ server 1.be.pool.ntp.org
 server 2.be.pool.ntp.org
 server 3.be.pool.ntp.org" >> /etc/ntp.conf
 		 
-	timedatectl set-ntp true
-	timedatectl set-timezone Europe/Brussels
 	
 	systemctl start ntpd
+	systemctl enable ntpd
 	
 	if [ $DEBUG -eq 1 ]; then 
 		systemctl status ntpd
 	fi
+	
+	timedatectl set-ntp true
+	timedatectl set-timezone Europe/Brussels
 	
 	ntptime
 }
