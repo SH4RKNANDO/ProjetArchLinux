@@ -71,7 +71,7 @@ echo -e "\n---------------------------\n"
 echo -e "\nVerification du Service NFS\n"
 systemctl status nfs-server
 echo 
-cat /etc/export
+cat /etc/exports
 echo
 echo -e "\n---------------------------\n"
 
@@ -79,15 +79,12 @@ echo -e "\n---------------------------\n"
 echo -e "\nVerification du Service SAMBA\n"
 systemctl status nmb smb
 echo
-cat /etc/smb.conf
+cat /etc/samba/smb.conf
 echo
 echo -e "\n---------------------------\n"
 
 
 echo -e "\nVerification du Service MYSQL\n"
-systemctl status nmb smb
-echo
-cat /etc/smb.conf
-echo
+systemctl status mysqld
 echo -e "\n---------------------------\n"
 
