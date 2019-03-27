@@ -83,8 +83,19 @@ cat /etc/samba/smb.conf
 echo
 echo -e "\n---------------------------\n"
 
-
 echo -e "\nVerification du Service MYSQL\n"
 systemctl status mysqld
 echo -e "\n---------------------------\n"
+
+
+
+
+
+
+# iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 21 -j ACCEPT
+
+Firewall State FUll
+
+# echo net.netfilter.nf_conntrack_helper=1 > /etc/sysctl.d/70-conntrack.conf
+# iptables -A PREROUTING -t raw -p tcp --dport 21 -j CT --helper ftp
 
