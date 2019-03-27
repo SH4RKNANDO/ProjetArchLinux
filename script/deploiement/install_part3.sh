@@ -274,7 +274,6 @@ driftfile /var/lib/ntp/ntp.drift
 	ntpdate -qu 0.be.pool.ntp.org
 	timedatectl set-timezone Europe/Brussels
 	timedatectl set-ntp true
-	ntptime
 	
 	systemctl restart ntpd
 	
