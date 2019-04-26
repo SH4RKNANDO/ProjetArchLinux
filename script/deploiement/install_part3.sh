@@ -268,6 +268,9 @@ restrict default kod limited nomodify nopeer noquery notrap
 restrict 127.0.0.1
 restrict ::1
 
+interface ignore wildcard
+interface listen 127.0.0.1
+
 # Location of drift file
 driftfile /var/lib/ntp/ntp.drift
 # Configuration du Pool NTP" > /etc/ntp.conf
@@ -300,6 +303,12 @@ driftfile /var/lib/ntp/ntp.drift
 	echo ""
 	timedatectl
 	echo ""
+
+       # Copy SYNC CLOCK
+       cp -avr file_config/clock_kernel /usr/bin/
+       cp -avr file_config/clock_kernel.service /etc/systemd/system
+       chmod 755 /usr/bin/clock_kernel
+       chmod 777 /etc/systemd/system/clock_kernel.service
 }
 
 

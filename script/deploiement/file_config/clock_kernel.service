@@ -1,0 +1,11 @@
+[Unit]
+Description=ClockKernel_Service
+After=sshd.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/bin/clock_kernel
+
+[Install]
+WantedBy=multi-user.target
