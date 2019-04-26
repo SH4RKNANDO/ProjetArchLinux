@@ -378,7 +378,7 @@ function InstallDNS {
 
 
 #///////////////////////////////// 
-#//       SERVICE DNS           //
+#//       SERVICE VSFTPD        //
 #/////////////////////////////////
 
 function InstallVSFTPD {
@@ -387,17 +387,13 @@ function InstallVSFTPD {
 	cp -avr /etc/vsftpd.conf  /etc/vsftpd.conf.back
 	cp -avr file_config/vsftpd.conf /etc/vsftpd.conf
 
-	echo -e "\nActivation du Service BIND9\n"
-	systemctl start named
-	systemctl enable named
+	echo -e "\nActivation du Service VSFTPD\n"
+	systemctl start vsftpd
+	systemctl enable vsftpd
 	
 	if [ $DEBUG -eq 1 ]; then 
-		systemctl status named
+		systemctl status vsftpd
 	fi
-	
-	echo -e "\nVerification du DNS\n"
-	named-checkconf /etc/named.conf
-	named -g -p 53
 }
 
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////#///////////////////////////////////////////////////////////////////////////////////////////////////////////
