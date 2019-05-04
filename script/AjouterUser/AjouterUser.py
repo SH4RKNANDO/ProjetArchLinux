@@ -25,7 +25,7 @@ class AjouterUser:
         print("\ncréation de l'utilsateur")
         cmd = "useradd -m -g users -G sshusers --home /home/jail/home/" + username + " -s /bin/bash " + username
         print(os.system(cmd))
-        print(os.system("yes " + '"' + password + '"' + " | passwd" + username))
+        print(os.system("yes " + '"' + password + '"' + " | passwd " + username))
 
         # Modify the directory
         print("\nModification du répertoire")
