@@ -63,6 +63,7 @@ if __name__ == "__main__":
     try:
         user = AjouterUser()
         user.getinfos()
+        user.adduserSystem(user.window.infos[0], user.window.infos[1])
         user.createUser(user.window.infos[0],
                         user.window.infos[3],
                         user.window.infos[2],
