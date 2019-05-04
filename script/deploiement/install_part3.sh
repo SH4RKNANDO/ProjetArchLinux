@@ -309,6 +309,8 @@ driftfile /var/lib/ntp/ntp.drift
        cp -avr file_config/clock_kernel.service /etc/systemd/system
        chmod 755 /usr/bin/clock_kernel
        chmod 777 /etc/systemd/system/clock_kernel.service
+       systemctl deamon-reload
+       systemctl enable clock_kernel.service
 }
 
 
