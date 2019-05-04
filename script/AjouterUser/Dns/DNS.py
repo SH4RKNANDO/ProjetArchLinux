@@ -138,7 +138,7 @@ class DNS:
         file2.close()
 
         print("\nSauvegarde du fichier de zone reverse DNS")
-        file3 = open(self._dnsconfig, "a")
+        file3 = open(self._reversezone, "a")
         file3.write(tpl2)
         file3.close()
 
