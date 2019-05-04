@@ -43,7 +43,7 @@ class DNS:
         dns3 += "// *----------------------------*\n"
         dns3 += "// | ZONE DE RESOLUTION INVERSE |\n"
         dns3 += "// *----------------------------*\n"
-        dns3 += "zone " + '"' + self._reverseip + "in-addr.arpa" + '"' + "\n"
+        dns3 += "zone " + '"' + self._reverseip + "in-addr.arpa" + '"' + "{ \n"
         dns3 += "  type master;\n"
         dns3 += "  file " + '"' + self._reversezone + '"' + ";\n"
         dns3 += "  allow-transfer { 127.0.0.1; };    // autorise le transfert\n"
@@ -85,11 +85,11 @@ class DNS:
         os.system("named-checkconf /etc/named.conf > /tmp/dnscheck")
         os.system("named-checkzone " + self._domainname + " " + self._internalzone + " >> /tmp/dnscheck")
         os.system("named-checkzone " + self._domainname + " " + self._reversezone + " >> /tmp/dnscheck")
-        os.system("nslookup zerocool.lan.be >> /tmp/dnscheck")
-        os.system("nslookup www.zerocool.lan.be >> /tmp/dnscheck")
+        os.system("nslookup " + self._domainname + " >> /tmp/dnscheck")
+        os.system("nslookup www" + self._domainname + " >> /tmp/dnscheck")
         os.system("ping zerocool.lan.be >> /tmp/dnscheck")
-        os.system("ping www.zerocool.lan.be >> /tmp/dnscheck")
-        os.system("nslookup 10.0.0.36 >> /tmp/dnscheck")
+        os.system("ping www" + self._domainname + " >> /tmp/dnscheck")
+        os.system("nslookup " + self._IP + " >> /tmp/dnscheck")
 
     def _sendbymail(self):
         cmd = "mutt -s " + '"' + "Modification zone dns" + '"' + " " + self._mail + " -a "
@@ -101,7 +101,6 @@ class DNS:
         # Backup
         print("\nBackup des fichiers de configuration du dns")
         print(os.system("cp -avr " + self._internalzone + " " + self._internalzone + ".bck"))
-        print(os.system("cp -avr " + self._reversezone + " " + self._reversezone + ".bck"))
 
         tpl = self._templateinternal()
         tpl2 = self._templateresolution()
