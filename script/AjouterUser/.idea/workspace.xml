@@ -15,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Dns/DNS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="659">
-              <caret line="143" column="13" selection-start-line="143" selection-start-column="13" selection-end-line="143" selection-end-column="13" />
+            <state relative-caret-position="160">
+              <caret line="42" selection-start-line="42" selection-end-line="42" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -104,9 +104,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="960" />
-    <option name="height" value="1037" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="675" />
+    <option name="y" value="171" />
+    <option name="width" value="950" />
+    <option name="height" value="777" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -201,12 +203,12 @@
       <workItem from="1556877122319" duration="2414000" />
       <workItem from="1556901659177" duration="41009000" />
       <workItem from="1556982827624" duration="482000" />
-      <workItem from="1556994430510" duration="6249000" />
+      <workItem from="1556994430510" duration="6724000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65908000" />
+    <option name="totallyTimeSpent" value="66383000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -218,10 +220,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1037" extended-state="6" />
+    <frame x="675" y="171" width="950" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.09338314" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19358407" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -325,8 +327,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Dns/DNS.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="659">
-          <caret line="143" column="13" selection-start-line="143" selection-start-column="13" selection-end-line="143" selection-end-column="13" />
+        <state relative-caret-position="160">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
