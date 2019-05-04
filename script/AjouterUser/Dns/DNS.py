@@ -103,6 +103,9 @@ class DNS:
         print(os.system("cp -avr " + self._internalzone + " " + self._internalzone + ".bck"))
         print(os.system("cp -avr " + self._reversezone + " " + self._reversezone + ".bck"))
 
+        tpl = self._templateinternal()
+        tpl2 = self._templateresolution()
+
         print("\n*--------------------------------------*")
         print(tpl)
         print("\n*--------------------------------------*")
