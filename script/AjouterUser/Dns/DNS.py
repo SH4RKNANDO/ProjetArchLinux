@@ -40,7 +40,7 @@ class DNS:
         dns2 += "                                        3M ; Minimum TTL\n"
         dns2 += "                                        )\n"
         dns2 += "@               IN      NS        " + self._Hostname + ".         ; NAMESERVER\n"
-        dns2 += self._IP + "        IN     PTR        " + "                ; AAA RECCORD\n"
+        dns2 += self._IP + "        IN     PTR        " + self._Hostname + ".                ; AAA RECCORD\n"
         return dns2
 
     def _templateresolution(self):
@@ -97,7 +97,7 @@ class DNS:
         print("\nVerification du fichier de configuration DNS\n")
         print(os.system("named-checkconf /etc/named.conf"))
         print(os.system("named-checkzone " + self._domainname + " " + self._internalzone))
-        print(os.system("named-checkzone " + self._domainname + " " + self._reversezone ))
+        print(os.system("named-checkzone " + self._domainname + " " + self._reversezone))
         os.system("nslookup " + self._domainname + " >> /tmp/dnscheck")
         os.system("nslookup www." + self._domainname + " >> /tmp/dnscheck")
         os.system("ping zerocool.lan.be >> /tmp/dnscheck")
@@ -132,12 +132,12 @@ class DNS:
         file1.write(tpl)
         file1.close()
 
-        print("\nSauvegarde du fichier de configuration DNS")
+        print("Sauvegarde du fichier de configuration DNS")
         file2 = open(self._dnsconfig, "a")
         file2.write(tpl2)
         file2.close()
 
-        print("\nSauvegarde du fichier de zone reverse DNS")
+        print("Sauvegarde du fichier de zone reverse DNS\n")
         file3 = open(self._reversezone, "a")
         file3.write(tpl3)
         file3.close()

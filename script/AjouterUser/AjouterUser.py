@@ -43,7 +43,7 @@ class AjouterUser:
 
         # ssh.generatekey()
         # db.createdb()
-        vhost.createvhost()
+        # vhost.createvhost()
         dns.createzone()
 
 
