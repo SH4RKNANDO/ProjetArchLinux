@@ -12,7 +12,7 @@ class DNS:
         self._IP = socket.gethostbyname(socket.gethostname())
         self._reverseip = self._getreverseip()
         self._Hostname = socket.gethostname()
-        self._reversezone = "/var/named/" + self._reverseip + ".in-addr.arpa"
+        self._reversezone = "/var/named/" + self._reverseip + "in-addr.arpa"
 
     def _templateinternal(self):
         dns2 = "$ttl 1H\n"
@@ -39,7 +39,7 @@ class DNS:
         dns2 += "                                        2W ; Expire\n"
         dns2 += "                                        3M ; Minimum TTL\n"
         dns2 += "                                        )\n"
-        dns2 += "@             IN      NS        " + self._Hostname + ".         ; NAMESERVER\n"
+        dns2 += "@               IN      NS        " + self._Hostname + ".         ; NAMESERVER\n"
         dns2 += self._IP + "        IN     PTR        " + "                ; AAA RECCORD\n"
         return dns2
 
@@ -56,7 +56,7 @@ class DNS:
         dns3 += "// *----------------------------*\n"
         dns3 += "// | ZONE DE RESOLUTION INVERSE |\n"
         dns3 += "// *----------------------------*\n"
-        dns3 += "zone " + '"' + self._reverseip + ".in-addr.arpa" + '"' + " { \n"
+        dns3 += "zone " + '"' + self._reverseip + "in-addr.arpa" + '"' + " { \n"
         dns3 += "  type master;\n"
         dns3 += "  file " + '"' + self._reversezone + '"' + ";\n"
         dns3 += "  allow-transfer { 127.0.0.1; };    // autorise le transfert\n"
@@ -94,7 +94,7 @@ class DNS:
         print("\n*--------------------------------------*")
 
     def _check_dns(self):
-        print("Verification du fichier de configuration DNS")
+        print("\nVerification du fichier de configuration DNS\n")
         os.system("named-checkconf /etc/named.conf > /tmp/dnscheck")
         os.system("named-checkzone " + self._domainname + " " + self._internalzone + " >> /tmp/dnscheck")
         os.system("named-checkzone " + self._domainname + " " + self._reversezone + " >> /tmp/dnscheck")
