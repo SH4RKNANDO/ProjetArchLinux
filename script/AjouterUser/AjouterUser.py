@@ -61,4 +61,4 @@ if __name__ == "__main__":
                     user.window.infos[2],
                     user.window.infos[1],
                     user.window.infos[4],
-                    user.window.infos[0])
+                    user.window.infos[5])
