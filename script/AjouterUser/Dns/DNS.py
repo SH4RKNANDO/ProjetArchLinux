@@ -12,7 +12,7 @@ class DNS:
         self._IP = socket.gethostbyname(socket.gethostname())
         self._reverseip = self._getreverseip()
         self._Hostname = socket.gethostname()
-        self._reversezone = "/var/named/" + self._reverseip + "in-addr.arpa"
+        self._reversezone = "/var/named/" + self._reverseip + ".in-addr.arpa"
 
     def _templateinternal(self):
         dns2 = "$ttl 1H\n"
@@ -30,6 +30,20 @@ class DNS:
         dns2 += "www               IN     A        " + self._IP + "                ; AAA RECCORD\n"
         return dns2
 
+    def _templatereverselookup(self):
+        dns2 = "$ttl 1H\n"
+        dns2 += "@          IN      SOA     " + self._Hostname + ". " + self._mail + ". (\n"
+        dns2 += "                                        20192103; Serial\n"
+        dns2 += "                                        1H ; Refresh\n"
+        dns2 += "                                        15M ; Retry\n"
+        dns2 += "                                        2W ; Expire\n"
+        dns2 += "                                        3M ; Minimum TTL\n"
+        dns2 += "                                        )\n"
+        dns2 += "@          IN      NS        " + self._Hostname + ".         ; NAMESERVER\n"
+        dns2 += self._domainname + ".   IN    MX        10 mail." + self._domainname + ". ; MX RECCORD\n"
+        dns2 += self._IP + "        IN     PTR        " + "                ; AAA RECCORD\n"
+        return dns2
+
     def _templateresolution(self):
         dns3 = "// *------------------------------------------------*\n"
         dns3 += "// | ZONE DE RESOLUTION DU DOMAINE " + self._domainname+"      |\n"
@@ -43,7 +57,7 @@ class DNS:
         dns3 += "// *----------------------------*\n"
         dns3 += "// | ZONE DE RESOLUTION INVERSE |\n"
         dns3 += "// *----------------------------*\n"
-        dns3 += "zone " + '"' + self._reverseip + "in-addr.arpa" + '"' + "{ \n"
+        dns3 += "zone " + '"' + self._reverseip + ".in-addr.arpa" + '"' + "{ \n"
         dns3 += "  type master;\n"
         dns3 += "  file " + '"' + self._reversezone + '"' + ";\n"
         dns3 += "  allow-transfer { 127.0.0.1; };    // autorise le transfert\n"
@@ -104,11 +118,14 @@ class DNS:
 
         tpl = self._templateinternal()
         tpl2 = self._templateresolution()
+        tpl3 = self._templatereverselookup()
 
         print("\n*--------------------------------------*")
         print(tpl)
         print("\n*--------------------------------------*")
         print(tpl2)
+        print("\n*--------------------------------------*")
+        print(tpl3)
         print("\n*--------------------------------------*")
 
         print("\nSauvegarde du fichier de zone interne")
@@ -120,6 +137,11 @@ class DNS:
         file2 = open(self._dnsconfig, "a")
         file2.write(tpl2)
         file2.close()
+
+        print("\nSauvegarde du fichier de zone reverse DNS")
+        file3 = open(self._dnsconfig, "a")
+        file3.write(tpl2)
+        file3.close()
 
     def createzone(self):
         self._savevdns()
