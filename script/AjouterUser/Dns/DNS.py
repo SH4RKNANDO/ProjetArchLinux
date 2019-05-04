@@ -95,9 +95,9 @@ class DNS:
 
     def _check_dns(self):
         print("\nVerification du fichier de configuration DNS\n")
-        os.system("named-checkconf /etc/named.conf > /tmp/dnscheck")
-        os.system("named-checkzone " + self._domainname + " " + self._internalzone + " >> /tmp/dnscheck")
-        os.system("named-checkzone " + self._domainname + " " + self._reversezone + " >> /tmp/dnscheck")
+        print(os.system("named-checkconf /etc/named.conf"))
+        print(os.system("named-checkzone " + self._domainname + " " + self._internalzone))
+        print(os.system("named-checkzone " + self._domainname + " " + self._reversezone ))
         os.system("nslookup " + self._domainname + " >> /tmp/dnscheck")
         os.system("nslookup www." + self._domainname + " >> /tmp/dnscheck")
         os.system("ping zerocool.lan.be >> /tmp/dnscheck")
