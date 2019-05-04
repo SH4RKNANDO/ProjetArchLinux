@@ -64,3 +64,5 @@ if __name__ == "__main__":
                         user.window.infos[5])
     except KeyboardInterrupt:
         print("Exit Now ...")
+        sys.exit()
+
