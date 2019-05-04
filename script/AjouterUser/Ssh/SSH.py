@@ -37,7 +37,7 @@ class SSH:
         print("\nGestion des droits")
         print(os.system("chmod -v 700 " + path))
         print(os.system("chmod -v 600 " + path + "/*"))
-        print(os.system("chown -Rv" + self._Username + ":" + self._Group + " " + path))
+        print(os.system("chown -Rv " + self._Username + ":" + self._Group + " " + path))
         print(os.system("chmod -v 400 " + path + "/authorized_keys"))
         print("\n")
 
