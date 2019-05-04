@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4d74a313-5ac6-4190-8e7f-496e4928e2f6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/Dns/DNS.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dns/DNS.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Http/VHOST.py" beforeDir="false" afterPath="$PROJECT_DIR$/Http/VHOST.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Dns/DNS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+            <state relative-caret-position="373">
+              <caret line="94" column="84" selection-start-line="94" selection-start-column="84" selection-end-line="94" selection-end-column="84" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -198,12 +197,12 @@
       <workItem from="1556877122319" duration="2414000" />
       <workItem from="1556901659177" duration="41009000" />
       <workItem from="1556982827624" duration="482000" />
-      <workItem from="1556994430510" duration="2820000" />
+      <workItem from="1556994430510" duration="3039000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62479000" />
+    <option name="totallyTimeSpent" value="62698000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -322,8 +321,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Dns/DNS.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+        <state relative-caret-position="373">
+          <caret line="94" column="84" selection-start-line="94" selection-start-column="84" selection-end-line="94" selection-end-column="84" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>

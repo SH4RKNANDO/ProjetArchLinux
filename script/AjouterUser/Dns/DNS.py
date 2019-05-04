@@ -93,23 +93,25 @@ class DNS:
     def _sendbymail(self):
         cmd = "mutt -s " + '"' + "Modification zone dns" + '"' + " " + self._mail + " -a "
         cmd += self._internalzone + " " + self._dnsconfig + " " + " < /tmp/dnscheck"
-        print("Backup du fichier Fichier Vhost")
         # print(cmd + "\n")
         print(os.system(cmd))
 
     def _savevdns(self):
         # Backup
-        os.system("cp -avr " + self._internalzone + " " + self._internalzone + ".bck")
-        os.system("cp -avr " + self._reversezone + " " + self._reversezone + ".bck")
+        print("\nBackup des fichiers de configuration du dns")
+        print(os.system("cp -avr " + self._internalzone + " " + self._internalzone + ".bck"))
+        print(os.system("cp -avr " + self._reversezone + " " + self._reversezone + ".bck"))
 
         tpl = self._templateinternal()
         tpl2 = self._templateresolution()
 
+        print("\nSauvegarde du fichier de zone interne")
         file1 = open(self._internalzone, "w")
         file1.write(tpl)
         file1.close()
 
-        file2 = open(self._dnsconfig, "a +")
+        print("\nSauvegarde du fichier de configuration DNS")
+        file2 = open(self._dnsconfig, "a")
         file2.write(tpl2)
         file2.close()
 
