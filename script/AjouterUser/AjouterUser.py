@@ -46,6 +46,13 @@ class AjouterUser:
         vhost.createvhost()
         dns.createzone()
 
+    def restartservice(self):
+        print("\nRestart Service Dns")
+        print(os.system("systemctl restart named"))
+
+        print("\nRestart Service Httpd")
+        print(os.system("systemctl restart httpd"))
+
 
 if __name__ == "__main__":
     euid = os.geteuid()
@@ -62,6 +69,8 @@ if __name__ == "__main__":
                         user.window.infos[1],
                         user.window.infos[4],
                         user.window.infos[5])
+        user.restartservice()
+
     except KeyboardInterrupt:
         print("Exit Now ...")
         sys.exit()
