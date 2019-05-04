@@ -25,20 +25,21 @@ class SSH:
     def _gestiondroitssh(self):
         path = "/home/jail/home/" + self._Username + "~/.ssh"
 
-        print("Création du Répertoire")
-        print(os.system("mkdir -pv" + path))
+        print("\nCréation du Répertoire")
+        print(os.system("mkdir -pv " + path))
 
-        print("Moving the PubKey to autorized_keys")
+        print("\nMoving the PubKey to autorized_keys")
         print(os.system("cp -avr /tmp/ServerKey.pub  " + path + "/authorized_keys"))
 
-        print("Delete Temp Key")
+        print("\nDelete Temp Key")
         print(os.system("rm -rfv /tmp/ServerKey*"))
 
-        print("Gestion des droits")
+        print("\nGestion des droits")
         print(os.system("chmod -v 700 " + path))
         print(os.system("chmod -v 600 " + path + "/*"))
         print(os.system("chown -Rv" + self._Username + ":" + self._Group + " " + path))
         print(os.system("chmod -v 400 " + path + "/authorized_keys"))
+        print("\n")
 
     def generatekey(self):
         self._generatekey()

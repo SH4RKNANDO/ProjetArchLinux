@@ -12,17 +12,17 @@ class Vhost:
         self._vhostspathback = "/etc/httpd/conf/extra/httpd-vhosts.back"
 
     def _templatevhost(self):
-        vhost = "<VirtualHost *:80"
-        vhost += "    ServerAdmin " + self._mail
-        vhost += "    DocumentRoot " + self._webdirectory
-        vhost += "    ServerName " + self._domainname
-        vhost += "    ServerAlias " + self._domainname
-        vhost += "    ErrorLog /var/log/httpd/" + self._domainname + "-error_log"
-        vhost += "    CustomLog /var/log/httpd/" + self._domainname + "-access_log common"
-        vhost += "    <Directory " + self._webdirectory
-        vhost += "         Require all granted"
-        vhost += "     </Directory>"
-        vhost += "</VirtualHost>"
+        vhost = "<VirtualHost *:80" + "\n"
+        vhost += "    ServerAdmin " + self._mail + "\n"
+        vhost += "    DocumentRoot " + self._webdirectory + "\n"
+        vhost += "    ServerName " + self._domainname + "\n"
+        vhost += "    ServerAlias " + self._domainname + "\n"
+        vhost += "    ErrorLog /var/log/httpd/" + self._domainname + "-error_log\n"
+        vhost += "    CustomLog /var/log/httpd/" + self._domainname + "-access_log common\n"
+        vhost += "    <Directory " + self._webdirectory + "\n"
+        vhost += "         Require all granted\n"
+        vhost += "     </Directory>\n"
+        vhost += "</VirtualHost>\n"
         return vhost
 
     def _resumevhost(self):

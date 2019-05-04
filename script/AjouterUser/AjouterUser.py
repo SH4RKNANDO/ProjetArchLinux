@@ -20,12 +20,20 @@ class AjouterUser:
         self.window.run()
 
     def adduserSystem(self, username, password):
-        os.system("useradd -m -g users -G sshusers --home /home/jail/home/" + username + " -s /bin/bash " + username)
-        os.system("yes " + password + " | passwd" + username)
+
+        #Create User
+        print("\ncréation de l'utilsateur")
+        cmd = "useradd -m -g users -G sshusers --home /home/jail/home/" + username + " -s /bin/bash " + username
+        print(os.system(cmd))
+        print(os.system("yes " + '"' + password + '"' + " | passwd" + username))
+
         # Modify the directory
-        os.system("usermod --home /home/" + username + " " + username)
+        print("\nModification du répertoire")
+        print(os.system("usermod --home /home/" + username + " " + username))
+
         # Create Passwd File
-        os.system("cat /etc/passwd | grep '^" + username + ":' > /home/jail/etc/passwd")
+        print("\ncréation du fichier de mots de passe")
+        print(os.system("cat /etc/passwd | grep '^" + username + ":' > /home/jail/etc/passwd"))
 
     def createUser(self, username, password, mail, group, dbname, domain):
         ssh = SSH(password, username, mail, group)
