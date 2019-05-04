@@ -6,7 +6,7 @@ class DataBase:
         self._username = username
         self._password = password
         self._dbname = dbname
-        self._mydb = mysql.connector.connect(host="localhost", user="root", passwd="zerocool")
+        self._mydb = mysql.connector.connect(host="localhost", user="root", passwd="arch-server")
 
     def _sendcmd(self, cmd):
         self._mydb.cursor().execute(cmd)
