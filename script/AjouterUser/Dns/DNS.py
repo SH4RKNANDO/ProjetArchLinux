@@ -7,7 +7,7 @@ class DNS:
     def __init__(self, usermail, domainname):
         self._domainname = domainname
         self._internalzone = "/var/named/" + domainname
-        self._dnsconfig = "/etc/named/named.conf"
+        self._dnsconfig = "/etc/named.conf"
         self._mail = usermail
         self._IP = socket.gethostbyname(socket.gethostname())
         self._reverseip = self._getreverseip()
