@@ -53,12 +53,14 @@ if __name__ == "__main__":
         print("You need to be the Superuser to make changes to these files...")
         args = ['sudo', sys.executable] + sys.argv + [os.environ]
         os.execlpe('sudo', *args)
-
-    user = AjouterUser()
-    user.getinfos()
-    user.createUser(user.window.infos[0],
-                    user.window.infos[3],
-                    user.window.infos[2],
-                    user.window.infos[1],
-                    user.window.infos[4],
-                    user.window.infos[5])
+    try:
+        user = AjouterUser()
+        user.getinfos()
+        user.createUser(user.window.infos[0],
+                        user.window.infos[3],
+                        user.window.infos[2],
+                        user.window.infos[1],
+                        user.window.infos[4],
+                        user.window.infos[5])
+    except KeyboardInterrupt:
+        print("Exit Now ...")
