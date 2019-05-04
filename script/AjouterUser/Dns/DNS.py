@@ -7,7 +7,7 @@ class DNS:
     def __init__(self, usermail, domainname):
         self._domainname = domainname
         self._internalzone = "/var/named/" + domainname
-        self._dnsconfig = "/var/named/named.conf"
+        self._dnsconfig = "/etc/named/named.conf"
         self._mail = usermail
         self._IP = socket.gethostbyname(socket.gethostname())
         self._reverseip = self._getreverseip()
@@ -81,6 +81,7 @@ class DNS:
         print("\n*--------------------------------------*")
 
     def _check_dns(self):
+        print("Verification du fichier de configuration DNS")
         os.system("named-checkconf /etc/named.conf > /tmp/dnscheck")
         os.system("named-checkzone " + self._domainname + " " + self._internalzone + " >> /tmp/dnscheck")
         os.system("named-checkzone " + self._domainname + " " + self._reversezone + " >> /tmp/dnscheck")
@@ -102,8 +103,11 @@ class DNS:
         print(os.system("cp -avr " + self._internalzone + " " + self._internalzone + ".bck"))
         print(os.system("cp -avr " + self._reversezone + " " + self._reversezone + ".bck"))
 
-        tpl = self._templateinternal()
-        tpl2 = self._templateresolution()
+        print("\n*--------------------------------------*")
+        print(tpl)
+        print("\n*--------------------------------------*")
+        print(tpl2)
+        print("\n*--------------------------------------*")
 
         print("\nSauvegarde du fichier de zone interne")
         file1 = open(self._internalzone, "w")
@@ -116,7 +120,6 @@ class DNS:
         file2.close()
 
     def createzone(self):
-        self._resumedns()
         self._savevdns()
         self._check_dns()
         self._sendbymail()
