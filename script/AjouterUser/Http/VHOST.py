@@ -27,26 +27,28 @@ class Vhost:
 
     def _resumevhost(self):
         template = self._templatevhost()
+        print("\nCréation des hôtes virtuel (VHOST)\n")
         print("*------------------------------------------------------*")
         print(template)
         print("*-------------------------------------------------------*")
 
     def _gestiondroit(self):
-        os.system("chmod +x " + self._homedir)
-        os.system("chmod o+x " + self._webdirectory)
-        os.system("chmod -R o+r " + self._webdirectory)
+        print("\nGestions des Droits sur le répertoire Web")
+        print(os.system("chmod +x " + self._homedir))
+        print(os.system("chmod o+x " + self._webdirectory))
+        print(os.system("chmod -R o+r " + self._webdirectory))
 
     def _sendbymail(self):
         cmd = "mutt -s " + '"' + "Modification de vhost" + '"' + " " + self._mail + " -a "
         cmd += self._vhostspath + " " + self._vhostspathback + " < /tmp/ServerKey_Gen"
-        print("Backup du fichier Fichier Vhost")
         # print(cmd + "\n")
         print(os.system(cmd))
 
     def _savevhost(self):
         template = self._templatevhost()
+        print("\nBackup du fichier de configuration !")
         os.system("cp -avr " + self._vhostspath + " " + self._vhostspathback)
-        file = open(self._vhostspath, "w")
+        file = open(self._vhostspath, "a")
         file.write(template)
         file.close()
         self._sendbymail()
