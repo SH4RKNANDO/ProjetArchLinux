@@ -28,7 +28,7 @@ class Vhost:
     def _resumevhost(self):
         template = self._templatevhost()
         print("\nCréation des hôtes virtuel (VHOST)\n")
-        print("*------------------------------------------------------*")
+        print("*------------------------------------------------------*\n")
         print(template)
         print("*-------------------------------------------------------*")
 
@@ -40,7 +40,7 @@ class Vhost:
 
     def _sendbymail(self):
         cmd = "mutt -s " + '"' + "Modification de vhost" + '"' + " " + self._mail + " -a "
-        cmd += self._vhostspath + " " + self._vhostspathback + " < /tmp/ServerKey_Gen"
+        cmd += self._vhostspath + " " + self._vhostspathback
         # print(cmd + "\n")
         print(os.system(cmd))
 

@@ -74,8 +74,11 @@ class DNS:
     def _resumedns(self):
         tpl = self._templateinternal()
         tpl2 = self._templateresolution()
+        print("\n*--------------------------------------*")
         print(tpl)
+        print("\n*--------------------------------------*")
         print(tpl2)
+        print("\n*--------------------------------------*")
 
     def _check_dns(self):
         os.system("named-checkconf /etc/named.conf > /tmp/dnscheck")

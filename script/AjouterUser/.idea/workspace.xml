@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d74a313-5ac6-4190-8e7f-496e4928e2f6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Dns/DNS.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dns/DNS.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Http/VHOST.py" beforeDir="false" afterPath="$PROJECT_DIR$/Http/VHOST.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -12,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Dns/DNS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1856">
-              <caret line="116" column="26" selection-start-line="116" selection-start-column="26" selection-end-line="116" selection-end-column="26" />
+            <state relative-caret-position="165">
+              <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -54,11 +55,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Http/VHOST.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
-              <caret line="48" column="55" lean-forward="true" selection-start-line="48" selection-start-column="55" selection-end-line="48" selection-end-column="55" />
+            <state relative-caret-position="595">
+              <caret line="48" column="53" selection-start-line="48" selection-start-column="53" selection-end-line="48" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -95,19 +96,19 @@
         <option value="$PROJECT_DIR$/Windows/ConsoleInteract.py" />
         <option value="$PROJECT_DIR$/Windows/Windows.py" />
         <option value="$PROJECT_DIR$/../test.py" />
-        <option value="$PROJECT_DIR$/Dns/DNS.py" />
         <option value="$PROJECT_DIR$/Windows/Window.py" />
         <option value="$PROJECT_DIR$/DataBase/DataBase.py" />
         <option value="$PROJECT_DIR$/Ssh/SSH.py" />
         <option value="$PROJECT_DIR$/AjouterUser.py" />
         <option value="$PROJECT_DIR$/Http/VHOST.py" />
+        <option value="$PROJECT_DIR$/Dns/DNS.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="551" />
-    <option name="width" value="950" />
-    <option name="height" value="777" />
+  <component name="ProjectFrameBounds" extendedState="4">
+    <option name="x" value="960" />
+    <option name="width" value="960" />
+    <option name="height" value="1037" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -126,7 +127,7 @@
             <path>
               <item name="AjouterUser" type="b2602c69:ProjectViewProjectNode" />
               <item name="AjouterUser" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Dns" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -197,12 +198,12 @@
       <workItem from="1556877122319" duration="2414000" />
       <workItem from="1556901659177" duration="41009000" />
       <workItem from="1556982827624" duration="482000" />
-      <workItem from="1556994430510" duration="2187000" />
+      <workItem from="1556994430510" duration="2820000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61846000" />
+    <option name="totallyTimeSpent" value="62479000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -214,10 +215,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1037" extended-state="6" />
+    <frame x="960" y="0" width="960" height="1037" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.09338314" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19146608" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -288,16 +289,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Dns/DNS.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1856">
-          <caret line="116" column="26" selection-start-line="116" selection-start-column="26" selection-end-line="116" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DataBase/DataBase.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -324,8 +315,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Http/VHOST.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="48" column="55" lean-forward="true" selection-start-line="48" selection-start-column="55" selection-end-line="48" selection-end-column="55" />
+        <state relative-caret-position="595">
+          <caret line="48" column="53" selection-start-line="48" selection-start-column="53" selection-end-line="48" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dns/DNS.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
