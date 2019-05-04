@@ -396,6 +396,17 @@ function InstallVSFTPD {
 	fi
 }
 
+#///////////////////////////////// 
+#//   INSTALL PYTHON PACKAGES   //
+#/////////////////////////////////
+
+function InstallPython {
+	top
+	echo -e "\nInstallation des librairies Python\n"
+	pacman -S python-pip python-mysql-connector
+        pip install npyscreen
+}
+
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////#///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function RemountBoot {
@@ -416,6 +427,7 @@ function main {
 	InstallHTTPD
 	InstallDNS
 	InstallVSFTPD
+        InstallPython
 	ELAPSED="Elapsed: $(($SECONDS/3600))hrs $((($SECONDS/60) % 60))min $(($SECONDS % 60))sec"
 	echo $ELAPSED
 }
