@@ -41,9 +41,9 @@ class AjouterUser:
         vhost = Vhost(username, mail, domain)
         dns = DNS(mail, domain)
 
-        # ssh.generatekey()
-        # db.createdb()
-        # vhost.createvhost()
+        ssh.generatekey()
+        db.createdb()
+        vhost.createvhost()
         dns.createzone()
 
 
