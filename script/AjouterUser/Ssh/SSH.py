@@ -34,9 +34,16 @@ class SSH:
         print("\nDelete Temp Key")
         print(os.system("rm -rfv /tmp/ServerKey*"))
 
-        print("\nGestion des droits")
+        print("\nGestion des droits /home")
+        print(os.system("chmod -Rv 770 /home/jail/home/"))
+        print(os.system("chown -Rv root:sshusers /home/jail/home/"))
+
+        print("\nGestion des droits /home/" + self._Username)
         print(os.system("chmod -Rv 700 /home/jail/home/" + self._Username))
-        print(os.system("chmod -v 600 " + path))
+        print(os.system("chown -Rv root:sshusers /home/jail/home/" + self._Username))
+
+        print("\nGestion des droits " + path)
+        print(os.system("chmod -v 600 /home/jail/" + path))
         print(os.system("chown -Rv " + self._Username + ":" + "sshusers" + " " + path))
         print(os.system("chmod -v 400 " + path + "/authorized_keys"))
         print("\n")
