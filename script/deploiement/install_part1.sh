@@ -61,7 +61,7 @@ function CreateLVM {
 	echo -e "\nCréation du Volume Physique\n"	
 	vgcreate raid10 /dev/md3
 	echo -e "\nCréation du Volume Physique\n"
-	lvcreate -L 1GB --name lv_home raid10 #/home
+	lvcreate -L 10GB --name lv_home raid10 #/home
 	lvcreate -L 4GB --name lv_srv raid10 #/srv
 	lvcreate -L 4GB --name lv_tmp raid10 #/tmp
 	lvcreate -L 4GB --name lv_partage raid10 #/partage
