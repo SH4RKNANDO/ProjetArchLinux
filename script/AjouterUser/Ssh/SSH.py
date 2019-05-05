@@ -9,9 +9,9 @@ class SSH:
         self._Group = group
 
     def _generatekey(self):
-        cmd = "ssh-keygen -t rsa -b 4096 -C " + '"' + "ClientKey" + '"' + " -P " + self._Password
+        cmd = "ssh-keygen -t ed25519 -C " + '"' + "ClientKey" + '"' + " -P " + self._Password
         cmd += " -f /tmp/ServerKey > /tmp/ServerKey_Gen"
-        print("Génération de la clés ssh RSA 4096")
+        print("Génération de la clés ssh ED25519 ")
         # print(cmd + "\n")
         print(os.system(cmd))
 
