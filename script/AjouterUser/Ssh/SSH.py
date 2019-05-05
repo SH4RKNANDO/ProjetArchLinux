@@ -39,7 +39,7 @@ class SSH:
         print(os.system("chown -Rv root:sshusers /home/jail/home/"))
 
         print("\nGestion des droits /home/" + self._Username)
-        print(os.system("chmod -Rv 700 /home/jail/home/" + self._Username))
+        print(os.system("chmod -Rv 770 /home/jail/home/" + self._Username))
         print(os.system("chown -Rv " + self._Username + ":sshusers /home/jail/home/" + self._Username))
 
         print("\nGestion des droits " + path)
