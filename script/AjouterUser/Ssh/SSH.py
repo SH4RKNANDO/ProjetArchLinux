@@ -29,7 +29,7 @@ class SSH:
         print(os.system("mkdir -pv " + path))
 
         print("\nCopy the keys into .ssh folder")
-        print(os.system("cp -avr /tmp/ServerKey*  " + path )        
+        print(os.system("cp -avr /tmp/ServerKey*  " + path))
         print(os.system("cp -avr /tmp/ServerKey.pub  " + path + "/authorized_keys"))
 
         print("\nDelete Temp Key")
