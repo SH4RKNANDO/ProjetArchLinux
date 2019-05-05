@@ -57,8 +57,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Http/VHOST.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="21" column="69" selection-start-line="21" selection-start-column="69" selection-end-line="21" selection-end-column="69" />
+            <state relative-caret-position="480">
+              <caret line="36" column="57" selection-start-line="36" selection-start-column="57" selection-end-line="36" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -104,9 +104,8 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="817" />
-    <option name="y" value="518" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="621" />
     <option name="width" value="950" />
     <option name="height" value="777" />
   </component>
@@ -199,12 +198,12 @@
       <workItem from="1556901659177" duration="41009000" />
       <workItem from="1556982827624" duration="482000" />
       <workItem from="1556994430510" duration="10113000" />
-      <workItem from="1557014503703" duration="1464000" />
+      <workItem from="1557014503703" duration="1559000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71236000" />
+    <option name="totallyTimeSpent" value="71331000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -326,8 +325,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Http/VHOST.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="21" column="69" selection-start-line="21" selection-start-column="69" selection-end-line="21" selection-end-column="69" />
+        <state relative-caret-position="480">
+          <caret line="36" column="57" selection-start-line="36" selection-start-column="57" selection-end-line="36" selection-end-column="57" />
         </state>
       </provider>
     </entry>

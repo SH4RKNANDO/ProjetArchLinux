@@ -34,6 +34,7 @@ class Vhost:
 
     def _gestiondroit(self):
         print("\nGestions des Droits sur le répertoire Web")
+        print(os.system("mkdir -pv " + self._webdirectory))
         print(os.system("chmod +x " + self._homedir))
         print(os.system("chmod o+x " + self._webdirectory))
         print(os.system("chmod -R o+r " + self._webdirectory))
