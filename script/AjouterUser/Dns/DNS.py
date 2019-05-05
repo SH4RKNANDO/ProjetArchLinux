@@ -8,7 +8,7 @@ class DNS:
         self._domainname = domainname
         self._internalzone = "/var/named/" + domainname
         self._dnsconfig = "/etc/named.conf"
-        self._mail = 
+        self._mail = ""
         self._IP = socket.gethostbyname(socket.gethostname())
         self._reverseip = self._getreverseip()
         self._Hostname = socket.gethostname()
