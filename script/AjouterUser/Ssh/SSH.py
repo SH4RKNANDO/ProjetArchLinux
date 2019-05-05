@@ -23,7 +23,7 @@ class SSH:
         print(os.system(cmd))
 
     def _gestiondroitssh(self):
-        path = "/home/jail/home/" + self._Username + "~/.ssh"
+        path = "/home/jail/home/" + self._Username + "/.ssh"
 
         print("\nCréation du Répertoire")
         print(os.system("mkdir -pv " + path))
@@ -35,9 +35,9 @@ class SSH:
         print(os.system("rm -rfv /tmp/ServerKey*"))
 
         print("\nGestion des droits")
-        print(os.system("chmod -v 700 " + path))
-        print(os.system("chmod -v 600 " + path + "/*"))
-        print(os.system("chown -Rv " + self._Username + ":" + self._Group + " " + path))
+        print(os.system("chmod -Rv 700 /home/jail/home/" + self._Username))
+        print(os.system("chmod -v 600 " + path))
+        print(os.system("chown -Rv " + self._Username + ":" + "sshusers" + " " + path))
         print(os.system("chmod -v 400 " + path + "/authorized_keys"))
         print("\n")
 

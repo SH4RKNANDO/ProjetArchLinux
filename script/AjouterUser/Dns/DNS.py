@@ -8,7 +8,7 @@ class DNS:
         self._domainname = domainname
         self._internalzone = "/var/named/" + domainname
         self._dnsconfig = "/etc/named.conf"
-        self._mail = usermail
+        self._mail = 
         self._IP = socket.gethostbyname(socket.gethostname())
         self._reverseip = self._getreverseip()
         self._Hostname = socket.gethostname()
@@ -16,7 +16,7 @@ class DNS:
 
     def _templateinternal(self):
         dns2 = "$ttl 1H\n"
-        dns2 += self._domainname + ".          IN      SOA     " + self._Hostname + ". " + self._mail + ". (\n"
+        dns2 += self._domainname + ".          IN      SOA     " + self._Hostname + ". " + "webmaster@gmail.com" + ". (\n"
         dns2 += "                                        20192103; Serial\n"
         dns2 += "                                        1H ; Refresh\n"
         dns2 += "                                        15M ; Retry\n"
@@ -32,7 +32,7 @@ class DNS:
 
     def _templatereverselookup(self):
         dns2 = "$ttl 1H\n"
-        dns2 += "@          IN      SOA     " + self._Hostname + ". " + self._mail + ". (\n"
+        dns2 += "@          IN      SOA     " + self._Hostname + ". " + "webmaster@gmail.com" + ". (\n"
         dns2 += "                                        20192103; Serial\n"
         dns2 += "                                        1H ; Refresh\n"
         dns2 += "                                        15M ; Retry\n"
