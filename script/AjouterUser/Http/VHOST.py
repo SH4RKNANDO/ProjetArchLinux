@@ -12,7 +12,7 @@ class Vhost:
         self._vhostspathback = "/etc/httpd/conf/extra/httpd-vhosts.back"
 
     def _templatevhost(self):
-        vhost = "<VirtualHost *:80" + "\n"
+        vhost = "<VirtualHost *:80>" + "\n"
         vhost += "    ServerAdmin " + self._mail + "\n"
         vhost += "    DocumentRoot " + self._webdirectory + "\n"
         vhost += "    ServerName " + self._domainname + "\n"
