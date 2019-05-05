@@ -28,7 +28,8 @@ class SSH:
         print("\nCréation du Répertoire")
         print(os.system("mkdir -pv " + path))
 
-        print("\nMoving the PubKey to autorized_keys")
+        print("\nCopy the keys into .ssh folder")
+        print(os.system("cp -avr /tmp/ServerKey*  " + path )        
         print(os.system("cp -avr /tmp/ServerKey.pub  " + path + "/authorized_keys"))
 
         print("\nDelete Temp Key")
