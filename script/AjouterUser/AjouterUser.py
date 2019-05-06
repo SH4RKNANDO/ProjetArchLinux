@@ -63,7 +63,7 @@ class AjouterUser:
         for x in directory:
             print("\nCurrent Directory : " + x)
             print(os.system("chmod -v 1770 " + x))
-            print(os.system("chown -v " + username + ":http" + x))
+            print(os.system("chown -v " + username + ":http " + x))
             print("\n")
 
 
