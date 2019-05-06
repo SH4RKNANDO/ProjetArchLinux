@@ -51,8 +51,9 @@ class Vhost:
         print(os.system(cmd))
 
         print("\nGestions des Droits sur le répertoire Web\n")
+
         for x in directory:
-            print("Répertoire en cours : " + x)
+            print("\nRépertoire en cours : " + x)
             print(os.system("chmod -v 770 " + x))
             print(os.system("chown -v " + self._username + ":http " + x))
 
