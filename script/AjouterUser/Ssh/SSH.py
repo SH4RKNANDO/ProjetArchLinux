@@ -22,7 +22,7 @@ class SSH:
         # print(cmd + "\n")
         print(os.system(cmd))
 
-    def _gestiondroitssh(self):
+    def _repertoiressh(self):
         path = "/home/jail/home/" + self._Username + "/.ssh"
 
         print("\nCréation du Répertoire")
@@ -34,22 +34,9 @@ class SSH:
 
         print("\nDelete Temp Key")
         print(os.system("rm -rfv /tmp/ServerKey*"))
-
-        print("\nGestion des droits /home")
-        print(os.system("chmod -v 770 /home/jail/home/"))
-        print(os.system("chown -Rv root:sshusers /home/jail/home/"))
-
-        print("\nGestion des droits /home/" + self._Username)
-        print(os.system("chmod -Rv 770 /home/jail/home/" + self._Username))
-        print(os.system("chown -Rv " + self._Username + ":sshusers /home/jail/home/" + self._Username))
-
-        print("\nGestion des droits " + path)
-        print(os.system("chmod -v 600 " + path))
-        print(os.system("chown -Rv " + self._Username + ":" + "sshusers" + " " + path))
-        print(os.system("chmod -v 400 " + path + "/authorized_keys"))
         print("\n")
 
     def generatekey(self):
         self._generatekey()
         self._sendkeybymail()
-        self._gestiondroitssh()
+        self._repertoiressh()
