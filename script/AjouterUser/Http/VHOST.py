@@ -34,7 +34,7 @@ class Vhost:
         print("*-------------------------------------------------------*")
 
     def _gestiondroit(self):
-        print("\nGestions des Droits sur le répertoire Web")
+        print("\nGestions des Droits sur le répertoire Web\n")
         print(os.system("mkdir -pv " + self._webdirectory))
 
         directory = [
@@ -45,7 +45,7 @@ class Vhost:
             "/home/jail/home/" + self._username + "/public_html"
         ]
 
-        site = "<html><body><h1>Site en Construction</h1></body></html>"
+        site = '"' + "<html><body><h1>Site en Construction</h1></body></html>" + '"'
         cmd = "echo " + site + " > /home/jail/home/" + self._username + "/public_html/index.html"
         print(os.system(cmd))
 

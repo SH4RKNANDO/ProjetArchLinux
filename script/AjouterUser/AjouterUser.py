@@ -20,8 +20,7 @@ class AjouterUser:
         self.window.run()
 
     def adduserSystem(self, username, password):
-
-        #Create User
+        # Create User
         print("\ncréation de l'utilsateur")
         cmd = "useradd -m -g users -G sshusers --home /home/jail/home/" + username + " -s /bin/bash " + username
         print(os.system(cmd))
