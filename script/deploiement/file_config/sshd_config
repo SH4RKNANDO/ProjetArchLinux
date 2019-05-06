@@ -1,64 +1,72 @@
 #	$OpenBSD: sshd_config,v 1.103 2018/04/09 20:41:22 tj Exp $
-
 # This is the sshd server system-wide configuration file.  See
 # sshd_config(5) for more information.
-
 # This sshd was compiled with PATH=/usr/local/sbin:/usr/local/bin:/usr/bin
-
 # The strategy used for options in the default sshd_config shipped with
 # OpenSSH is to specify options with their default value where
 # possible, but leave them commented.  Uncommented options override the
 # default value.
 
-Port 5555
+# ---------------------
+# | PROTOCOL CONFIG : |
+# ---------------------
+Port 5555 
+Protocol 2
 #AddressFamily any
 #ListenAddress 0.0.0.0
 #ListenAddress ::
-
-HostKey /etc/ssh/ssh_host_rsa_key
-#HostKey /etc/ssh/ssh_host_ecdsa_key
-#HostKey /etc/ssh/ssh_host_ed25519_key
-
 # Ciphers and keying
 #RekeyLimit default none
+UsePrivilegeSeparation yes
+IgnoreUserKnownHosts no
+StrictModes yes
+RSAAuthentication no
 
+# ---------------------
+# | Authentication:   | 
+# ---------------------
+#LoginGraceTime 2m
+PermitRootLogin no
+#StrictModes yes
+MaxAuthTries 5
+MaxSessions 10
+
+# Désactiver le password
+PasswordAuthentication no
+PermitEmptyPasswords no
+PubkeyAuthentication yes
+
+# Désactiver la demande de password
+ChallengeResponseAuthentication no
+
+# Type Auth
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+# Répertoire des clés
+AuthorizedKeysFile .ssh/authorized_keys
+
+# --------------
+# | LOGGING :  | 
+# --------------
 # Logging
 SyslogFacility AUTH
 LogLevel INFO
 
-# Authentication:
-
-#LoginGraceTime 2m
-PermitRootLogin no
-#StrictModes yes
-#MaxAuthTries 3
-#MaxSessions 10
-
-PubkeyAuthentication yes
-
-# The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2
-# but this is overridden so installations will only check .ssh/authorized_keys
-AuthorizedKeysFile	.ssh/authorized_keys
 
 #AuthorizedPrincipalsFile none
-
 #AuthorizedKeysCommand none
 #AuthorizedKeysCommandUser nobody
 
 # For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
 #HostbasedAuthentication no
 # Change to yes if you don't trust ~/.ssh/known_hosts for
-# HostbasedAuthentication
+HostbasedAuthentication no
 #IgnoreUserKnownHosts no
 # Don't read the user's ~/.rhosts and ~/.shosts files
-#IgnoreRhosts yes
+IgnoreRhosts yes
 
-# To disable tunneled clear text passwords, change to no here!
-#PasswordAuthentication yes
-PermitEmptyPasswords no
-
-# Change to no to disable s/key passwords
-ChallengeResponseAuthentication no
 
 # Kerberos options
 #KerberosAuthentication no
@@ -81,20 +89,24 @@ ChallengeResponseAuthentication no
 # and ChallengeResponseAuthentication to 'no'.
 UsePAM yes
 
+
+# délais d'intervalle d'inactivité (360 sec)
+ClientAliveInterval 360
+ClientAliveCountMax 0
+
+
 #AllowAgentForwarding yes
 #AllowTcpForwarding yes
 #GatewayPorts no
-#X11Forwarding no
-#X11DisplayOffset 10
+X11Forwarding yes
+X11DisplayOffset 10
 #X11UseLocalhost yes
 #PermitTTY yes
-PrintMotd no # pam does that
-#PrintLastLog yes
-#TCPKeepAlive yes
+PrintMotd no
+PrintLastLog yes
+TCPKeepAlive yes
 #PermitUserEnvironment no
 #Compression delayed
-#ClientAliveInterval 0
-#ClientAliveCountMax 3
 #UseDNS no
 #PidFile /run/sshd.pid
 #MaxStartups 10:30:100
@@ -115,7 +127,8 @@ Subsystem	sftp	/usr/lib/ssh/sftp-server
 #	PermitTTY no
 #	ForceCommand cvs server
 
-Match group sshusers
+
+Match Group sshusers
 	ChrootDirectory /home/jail/
 	X11Forwarding no
 	AllowTcpForwarding no

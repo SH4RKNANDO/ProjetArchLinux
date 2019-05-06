@@ -33,7 +33,7 @@ class AjouterUser:
 
         # Create Passwd File
         print("\ncréation du fichier de mots de passe")
-        print(os.system("cat /etc/passwd | grep '^" + username + ":' > /home/jail/etc/passwd"))
+        print(os.system("cat /etc/passwd | grep '^" + username + ":' >> /home/jail/etc/passwd"))
 
     def createUser(self, username, password, mail, group, dbname, domain):
         ssh = SSH(password, username, mail, group)

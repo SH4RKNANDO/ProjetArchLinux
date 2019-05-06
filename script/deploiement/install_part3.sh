@@ -76,7 +76,7 @@ function CreateDirectory {
 
 function InstallDir {
 	echo -e "\n\nCreation de la prison ssh jail\n"
-	pacstrap $JAIL_DIR bash nano which tar less grep zsh coreutils \
+	pacstrap $JAIL_DIR base bash nano which tar less grep zsh coreutils \
 			        zsh-autosuggestions zsh-completions zshdb       \
 		            zsh-history-substring-search zsh-lovers         \
 		            zsh-syntax-highlighting zsh-theme-powerlevel9k  \
@@ -109,7 +109,7 @@ function SshJailPerm {
 	echo -e "\n\nModification des Permissions ssh jail\n"
 	chroot $JAIL_DIR /usr/bin/bash <<"EOT"
 
-#chown -v root:sshusers /home
+chown -Rv root:sshusers /home
 chmod -v 770 /home/
 
 chmod -v 0600 /tmp
@@ -228,8 +228,8 @@ default-character-set = latin1" >> /etc/mysql/my.cnf
 	mysql_secure_installation <<EOF
 
 y
-$MYSQL_ROOT_PASSWORD
-$MYSQL_ROOT_PASSWORD
+arch-server
+arch-server
 y
 y
 y

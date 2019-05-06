@@ -105,13 +105,13 @@ function GenerateRamdisk {
 function InstallGrub {
 	echo -e "\nConfiguration de Grub2\n"
 	grub-mkconfig -o /boot/grub/grub.cfg
-	grub-install $GRUB_DISK --recheck
+	grub-install /dev/sde --recheck
 	cp -avr file_config/install_grub /usr/bin/install_grub
 	chmod 755 -v /usr/bin/install_grub
 	
 	echo -e "\nInstallation de Grub2 dans le MBR\n"
 	grub-mkconfig -o /boot/grub/grub.cfg
-	grub-install $GRUB_DISK --recheck
+	grub-install /dev/sde --recheck
 }
 
 function SecuFstab {
