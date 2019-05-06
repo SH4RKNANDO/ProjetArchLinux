@@ -105,7 +105,7 @@ class DNS:
         os.system("nslookup " + self._IP + " >> /tmp/dnscheck")
 
     def _sendbymail(self):
-        cmd = "mutt -s " + '"' + "Modification zone dns" + '"' + " " + self._mail + " -a "
+        cmd = "echo " " | mutt -s " + '"' + "Modification zone dns" + '"' + " " + self._mail + " -a "
         cmd += self._internalzone + " " + self._dnsconfig + " " + " < /tmp/dnscheck"
         # print(cmd + "\n")
         print(os.system(cmd))

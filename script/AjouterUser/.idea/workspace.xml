@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d74a313-5ac6-4190-8e7f-496e4928e2f6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/zerocool.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/zerocool.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dns/DNS.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dns/DNS.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Http/VHOST.py" beforeDir="false" afterPath="$PROJECT_DIR$/Http/VHOST.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Dns/DNS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
-              <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
+            <state relative-caret-position="496">
+              <caret line="119" column="44" lean-forward="true" selection-start-line="119" selection-start-column="44" selection-end-line="119" selection-end-column="44" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -55,11 +56,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Http/VHOST.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="451">
-              <caret line="57" column="103" selection-start-line="57" selection-start-column="103" selection-end-line="57" selection-end-column="103" />
+            <state relative-caret-position="547">
+              <caret line="64" selection-start-line="64" selection-end-line="64" />
             </state>
           </provider>
         </entry>
@@ -99,9 +100,9 @@
         <option value="$PROJECT_DIR$/Windows/Window.py" />
         <option value="$PROJECT_DIR$/DataBase/DataBase.py" />
         <option value="$PROJECT_DIR$/Ssh/SSH.py" />
-        <option value="$PROJECT_DIR$/Dns/DNS.py" />
         <option value="$PROJECT_DIR$/AjouterUser.py" />
         <option value="$PROJECT_DIR$/Http/VHOST.py" />
+        <option value="$PROJECT_DIR$/Dns/DNS.py" />
       </list>
     </option>
   </component>
@@ -122,6 +123,11 @@
             <path>
               <item name="AjouterUser" type="b2602c69:ProjectViewProjectNode" />
               <item name="AjouterUser" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AjouterUser" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AjouterUser" type="462c0819:PsiDirectoryNode" />
+              <item name="Dns" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AjouterUser" type="b2602c69:ProjectViewProjectNode" />
@@ -199,12 +205,13 @@
       <workItem from="1556982827624" duration="482000" />
       <workItem from="1556994430510" duration="10113000" />
       <workItem from="1557014503703" duration="1690000" />
-      <workItem from="1557149551873" duration="999000" />
+      <workItem from="1557149551873" duration="1759000" />
+      <workItem from="1557155137338" duration="603000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72461000" />
+    <option name="totallyTimeSpent" value="73824000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -219,7 +226,7 @@
     <frame x="0" y="0" width="1920" height="1037" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.09018143" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.09124867" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -283,16 +290,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../test.py" />
-    <entry file="file://$PROJECT_DIR$/Dns/DNS.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AjouterUser.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="832">
@@ -326,8 +323,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Http/VHOST.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="57" column="103" selection-start-line="57" selection-start-column="103" selection-end-line="57" selection-end-column="103" />
+        <state relative-caret-position="547">
+          <caret line="64" selection-start-line="64" selection-end-line="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dns/DNS.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="119" column="44" lean-forward="true" selection-start-line="119" selection-start-column="44" selection-end-line="119" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

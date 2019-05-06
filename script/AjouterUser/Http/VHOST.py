@@ -58,8 +58,8 @@ class Vhost:
         print(os.system("chmod -v 1770 /home/jail/home/" + self._username + "/public_html/index.html"))
 
     def _sendbymail(self):
-        cmd = "mutt -s " + '"' + "Modification de vhost" + '"' + " " + self._mail + " -a "
-        cmd += self._vhostspath + " " + self._vhostspathback
+        cmd = "echo " " | mutt -s " + '"' + "Modification zone dns" + '"' + " " + self._mail + " -a "
+        cmd += self._internalzone + " " + self._dnsconfig + " "
         # print(cmd + "\n")
         print(os.system(cmd))
 
