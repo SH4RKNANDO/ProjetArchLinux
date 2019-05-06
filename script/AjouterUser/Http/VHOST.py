@@ -18,7 +18,7 @@ class Vhost:
         vhost += "    ServerName " + self._domainname + "\n"
         vhost += "    ServerAlias " + self._domainname + "\n"
         vhost += "    ErrorLog " + '"' + "/var/log/httpd/" + self._domainname + "-error_log" + '"' + "\n"
-        vhost += "    CustomLog " + '"' + "/var/log/httpd/" + self._domainname + "-access_log common "+ '"' + "\n"
+        vhost += "    CustomLog " + '"' + "/var/log/httpd/" + self._domainname + "-access_log" + '"' + " common" + "\n"
         vhost += "    <Directory " + '"' + self._webdirectory + '"' + " >\n"
         vhost += "         Require all granted\n"
         vhost += "     </Directory>\n"
