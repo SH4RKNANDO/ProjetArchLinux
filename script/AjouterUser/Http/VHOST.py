@@ -38,7 +38,7 @@ class Vhost:
         print(os.system("mkdir -pv " + self._webdirectory))
 
         directory = [
-            "/home"
+            "/home",
             "/home/jail",
             "/home/jail/home",
             "/home/jail/home/" + self._username,
