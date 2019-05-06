@@ -45,18 +45,20 @@ class Vhost:
             "/home/jail/home/" + self._username + "/public_html"
         ]
 
-        for x in directory:
-            print(os.system("chmod -v 770 " + x))
-            print(os.system("chown -v " + self._username + ":http " + x))
-
         site = "<html><body><h1>Site en Construction</h1></body></html>"
         cmd = "echo " + site + " > /home/jail/home/" + self._username + "/public_html/index.html"
         print(os.system(cmd))
+
+        for x in directory:
+            print(x)
+            print(os.system("chmod -v 770 " + x))
+            print(os.system("chown -v " + self._username + ":http " + x))
 
         cmd = "chown -v " + self._username + ":http /home/jail/home/" + self._username + "public_html/index.html"
         print(os.system(cmd))
         print(os.system("chmod -v 1770 /home/jail/home/" + self._username + "/public_html/index.html"))
         print(os.system("DroitSiteweb"))
+
 
     def _savevhost(self):
         template = self._templatevhost()
