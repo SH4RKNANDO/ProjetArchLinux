@@ -4,6 +4,7 @@ import os
 class Vhost:
 
     def __init__(self, username, usermail, domainname):
+        self._username = username
         self._vhostspath = "/etc/httpd/conf/extra/httpd-vhosts.conf"
         self._webdirectory = "/home/jail/home/" + username + "/public_html"
         self._homedir = "/home/jail/home/" + username
@@ -35,9 +36,26 @@ class Vhost:
     def _gestiondroit(self):
         print("\nGestions des Droits sur le répertoire Web")
         print(os.system("mkdir -pv " + self._webdirectory))
-        print(os.system("chmod +x " + self._homedir))
-        print(os.system("chmod o+x " + self._webdirectory))
-        print(os.system("chmod -R o+r " + self._webdirectory))
+
+        directory = [
+            "/home"
+            "/home/jail",
+            "/home/jail/home",
+            "/home/jail/home/" + self._username,
+            "/home/jail/home/" + self._username + "/public_html"
+        ]
+
+        for x in directory:
+            print(os.system("chmod -v 770 " + x))
+            print(os.system("chown -v " + self._username + ":http " + x))
+
+        site = "<html><body><h1>Site en Construction</h1></body></html>"
+        cmd = "echo " + site + " > /home/jail/home/" + self._username + "/public_html/index.html"
+        print(os.system(cmd))
+
+        cmd = "chown -v " + self._username + ":http /home/jail/home/" + self._username + "public_html/index.html"
+        print(os.system(cmd))
+        print(os.system("chmod -v 1770 /home/jail/home/" + self._username + "/public_html/index.html"))
 
     def _sendbymail(self):
         cmd = "mutt -s " + '"' + "Modification de vhost" + '"' + " " + self._mail + " -a "

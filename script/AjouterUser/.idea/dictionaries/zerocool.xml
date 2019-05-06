@@ -4,6 +4,7 @@
       <w>autorized</w>
       <w>checkuser</w>
       <w>clés</w>
+      <w>createvhost</w>
       <w>création</w>
       <w>dbname</w>
       <w>domaine</w>
@@ -19,6 +20,7 @@
       <w>gestion</w>
       <w>gestiondroit</w>
       <w>gestiondroitssh</w>
+      <w>gestions</w>
       <w>getreverseip</w>
       <w>getuserinfos</w>
       <w>getuserinteract</w>
@@ -38,6 +40,7 @@
       <w>récapitulatif</w>
       <w>répertoire</w>
       <w>savevhost</w>
+      <w>sendbymail</w>
       <w>sendkeybymail</w>
       <w>sshusers</w>
       <w>templatedns</w>
@@ -54,6 +57,8 @@
       <w>veuillez</w>
       <w>vhost</w>
       <w>vhosts</w>
+      <w>vhostspath</w>
+      <w>vhostspathback</w>
       <w>webdirectory</w>
     </words>
   </dictionary>
