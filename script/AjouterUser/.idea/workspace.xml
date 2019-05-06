@@ -57,8 +57,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Http/VHOST.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="672">
-              <caret line="54" column="27" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
+            <state relative-caret-position="528">
+              <caret line="60" column="91" selection-start-line="60" selection-start-column="91" selection-end-line="60" selection-end-column="91" />
             </state>
           </provider>
         </entry>
@@ -104,9 +104,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
+    <option name="x" value="259" />
+    <option name="y" value="204" />
     <option name="width" value="940" />
-    <option name="height" value="1076" />
+    <option name="height" value="1037" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -204,12 +206,12 @@
       <workItem from="1556994430510" duration="10113000" />
       <workItem from="1557014503703" duration="1690000" />
       <workItem from="1557149551873" duration="1759000" />
-      <workItem from="1557155137338" duration="4232000" />
+      <workItem from="1557155137338" duration="4868000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77453000" />
+    <option name="totallyTimeSpent" value="78089000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -221,10 +223,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1037" extended-state="6" />
+    <frame x="259" y="204" width="940" height="1037" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.09124867" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19127516" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -331,8 +333,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Http/VHOST.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="54" column="27" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
+        <state relative-caret-position="528">
+          <caret line="60" column="91" selection-start-line="60" selection-start-column="91" selection-end-line="60" selection-end-column="91" />
         </state>
       </provider>
     </entry>

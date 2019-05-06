@@ -58,7 +58,7 @@ class Vhost:
             print(os.system("chown -v " + self._username + ":http " + x))
 
         print("\nGestions des Droits sur le Fichier web")
-        cmd = "chown -v " + self._username + ":http /home/jail/home/" + self._username + "public_html/index.html"
+        cmd = "chown -v " + self._username + ":http /home/jail/home/" + self._username + "/public_html/index.html"
         print(os.system(cmd))
         print(os.system("chmod -v 1770 /home/jail/home/" + self._username + "/public_html/index.html"))
         print(os.system("DroitSiteweb"))
