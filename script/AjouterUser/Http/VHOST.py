@@ -56,6 +56,7 @@ class Vhost:
         cmd = "chown -v " + self._username + ":http /home/jail/home/" + self._username + "public_html/index.html"
         print(os.system(cmd))
         print(os.system("chmod -v 1770 /home/jail/home/" + self._username + "/public_html/index.html"))
+        print(os.system("DroitSiteweb"))
 
     def _savevhost(self):
         template = self._templatevhost()
