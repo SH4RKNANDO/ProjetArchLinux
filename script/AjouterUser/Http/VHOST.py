@@ -57,12 +57,6 @@ class Vhost:
         print(os.system(cmd))
         print(os.system("chmod -v 1770 /home/jail/home/" + self._username + "/public_html/index.html"))
 
-    def _sendbymail(self):
-        cmd = "echo " " | mutt -s " + '"' + "Modification zone dns" + '"' + " " + self._mail + " -a "
-        cmd += self._internalzone + " " + self._dnsconfig + " "
-        # print(cmd + "\n")
-        print(os.system(cmd))
-
     def _savevhost(self):
         template = self._templatevhost()
         print("\nBackup du fichier de configuration !")
@@ -70,8 +64,8 @@ class Vhost:
         file = open(self._vhostspath, "a")
         file.write(template)
         file.close()
-        self._sendbymail()
 
     def createvhost(self):
         self._resumevhost()
         self._savevhost()
+        self._gestiondroit()
