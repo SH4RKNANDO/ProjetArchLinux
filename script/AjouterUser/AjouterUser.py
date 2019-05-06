@@ -52,6 +52,20 @@ class AjouterUser:
         print("\nRestart Service Httpd")
         print(os.system("systemctl restart httpd"))
 
+    def gestiondroits(self, username):
+        print("\nGestions des droits du répertoire")
+        directory = [
+            "/home/jail/home/" + username,
+            "/home/jail/home/" + username + "/public_html",
+            "/home/jail/home/" + username + "/public_html/index.html",
+        ]
+
+        for x in directory:
+            print("\nCurrent Directory : " + x)
+            print(os.system("chmod -v 1770 " + x))
+            print(os.system("chown -v " + username + ":http" + x))
+            print("\n")
+
 
 if __name__ == "__main__":
     euid = os.geteuid()
@@ -70,6 +84,7 @@ if __name__ == "__main__":
                         user.window.infos[4],
                         user.window.infos[5])
         user.restartservice()
+        user.gestiondroits(user.window.infos[0])
 
     except KeyboardInterrupt:
         print("Exit Now ...")

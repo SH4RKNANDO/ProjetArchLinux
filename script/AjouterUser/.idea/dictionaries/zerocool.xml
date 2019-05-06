@@ -20,6 +20,7 @@
       <w>generatekey</w>
       <w>gestion</w>
       <w>gestiondroit</w>
+      <w>gestiondroits</w>
       <w>gestiondroitssh</w>
       <w>gestions</w>
       <w>getreverseip</w>
@@ -34,6 +35,7 @@
       <w>newuser</w>
       <w>passwd</w>
       <w>reccord</w>
+      <w>restartservice</w>
       <w>resumedns</w>
       <w>resumevhost</w>
       <w>reverseip</w>
