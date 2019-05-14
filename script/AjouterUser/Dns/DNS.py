@@ -144,36 +144,30 @@ class DNS:
         file3.write(tpl3)
         file3.close()
     
-    def _signezone(self, domainname):
-		self._keypath
-		
-		cmd = "dnssec-keygen -a RSASHA256 -b 4096 -n ZONE " + self._domainname
-		print("\nGénération de la Clés Zone Signing Key (ZSK)\n")
-		print(os.system(cmd))
+    def _signezone(self):
+        cmd = "dnssec-keygen -a RSASHA256 -b 4096 -n ZONE " + self._domainname
+        print("\nGénération de la Clés Zone Signing Key (ZSK)\n")
+        print(os.system(cmd))
 
-		cmd = "dnssec-keygen -f KSK -a RSASHA256 -b 4096 -n ZONE " + self._domainname
-		print("\nGénération de la Clés Key Signing Key (KSK)\n")
-		print(os.system(cmd))
+        cmd = "dnssec-keygen -f KSK -a RSASHA256 -b 4096 -n ZONE " + self._domainname
+        print("\nGénération de la Clés Key Signing Key (KSK)\n")
+        print(os.system(cmd))
 
-		files = glob.glob(self._keypath + "/" + self._domainname + "*.key")
-		
-		file = open(self._internalzone, "a")
-		
-		for file in files:
-			entry = '$' + "INCLUDE " + file
-			print("\n" + entry + "\n")
+        files = glob.glob(self._keypath + "/" + self._domainname + "*.key")
+        file = open(self._internalzone, "a")
 
-			print("\nEcriture de la zone interne\n")
-			file.write(entry)
-		
-		file.close()
+        for file in files:
+            entry = '$' + "INCLUDE " + file
+            print("\n" + entry + "\n")
+            print("\nEcriture de la zone interne\n")
+            file.write(entry)
 
-		print("\nSignature de la zone\n")
-		cmd = "dnssec-signzone -A -3 $(head -c 1000 /dev/random | sha1sum | cut -b 1-16) "
-		cmd += "-N INCREMENT -o " + self._domainname + " -t " + self._internalzone
-		os.system(cmd)
-		
+        file.close()
 
+        print("\nSignature de la zone\n")
+        cmd = "dnssec-signzone -A -3 $(head -c 1000 /dev/random | sha1sum | cut -b 1-16) "
+        cmd += "-N INCREMENT -o " + self._domainname + " -t " + self._internalzone
+        os.system(cmd)
 
     def createzone(self):
         self._savevdns()
