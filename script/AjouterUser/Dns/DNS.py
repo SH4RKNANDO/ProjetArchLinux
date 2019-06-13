@@ -145,11 +145,11 @@ class DNS:
         file3.close()
     
     def _signezone(self):
-        cmd = "dnssec-keygen -a RSASHA256 -b 4096 -n ZONE " + self._domainname
+        cmd = "dnssec-keygen -a RSASHA256 -b 4096 -n ZONE /var/named/" + self._domainname
         print("\nGénération de la Clés Zone Signing Key (ZSK)\n")
         print(os.system(cmd))
 
-        cmd = "dnssec-keygen -f KSK -a RSASHA256 -b 4096 -n ZONE " + self._domainname
+        cmd = "dnssec-keygen -f KSK -a RSASHA256 -b 4096 -n ZONE /var/named/" + self._domainname
         print("\nGénération de la Clés Key Signing Key (KSK)\n")
         print(os.system(cmd))
 
