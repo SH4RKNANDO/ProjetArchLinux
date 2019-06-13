@@ -106,12 +106,6 @@ class DNS:
         os.system("ping www" + self._domainname + " >> /tmp/dnscheck")
         os.system("nslookup " + self._IP + " >> /tmp/dnscheck")
 
-    def _sendbymail(self):
-        cmd = "mutt -s " + '"' + "Modification zone dns" + '"' + " " + self._mail + " -a "
-        cmd += self._internalzone + " " + self._dnsconfig + " " + " < /tmp/dnscheck"
-        # print(cmd + "\n")
-        print(os.system(cmd))
-
     def _savevdns(self):
         # Backup
         print("\nBackup des fichiers de configuration du dns")
@@ -145,12 +139,8 @@ class DNS:
         file3.close()
     
     def _signezone(self):
-        cmd = "dnssec-keygen -a RSASHA256 -b 4096 -n ZONE /var/named/" + self._domainname
+        cmd= "dnssec-script" + domain.tld + "genkeys"
         print("\nGénération de la Clés Zone Signing Key (ZSK)\n")
-        print(os.system(cmd))
-
-        cmd = "dnssec-keygen -f KSK -a RSASHA256 -b 4096 -n ZONE /var/named/" + self._domainname
-        print("\nGénération de la Clés Key Signing Key (KSK)\n")
         print(os.system(cmd))
 
         files = glob.glob(self._keypath + "/" + self._domainname + "*.key")
@@ -172,5 +162,4 @@ class DNS:
     def createzone(self):
         self._savevdns()
         self._check_dns()
-        self._sendbymail()
         self._signezone()
