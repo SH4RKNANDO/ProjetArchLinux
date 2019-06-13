@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import os
 import socket
 import glob
@@ -139,25 +141,16 @@ class DNS:
         file3.close()
     
     def _signezone(self):
-        cmd= "dnssec-script" + domain.tld + "genkeys"
-        print("\nGénération de la Clés Zone Signing Key (ZSK)\n")
+        cmd = "dnssec-script " + self._domainname + " genkeys"
+        print("\nGénération des clés en cours....\n")
+        print(os.system(cmd))
+
+        cmd = "dnssec-script " + self._domainname + " sign"
+        print("\nSignature de la zone en cours....\n")
         print(os.system(cmd))
 
         files = glob.glob(self._keypath + "/" + self._domainname + "*.key")
         file = open(self._internalzone, "a")
-
-        for file in files:
-            entry = '$' + "INCLUDE " + file
-            print("\n" + entry + "\n")
-            print("\nEcriture de la zone interne\n")
-            file.write(entry)
-
-        file.close()
-
-        print("\nSignature de la zone\n")
-        cmd = "dnssec-signzone -A -3 $(head -c 1000 /dev/random | sha1sum | cut -b 1-16) "
-        cmd += "-N INCREMENT -o " + self._domainname + " -t " + self._internalzone
-        print(os.system(cmd))
 
     def createzone(self):
         self._savevdns()
