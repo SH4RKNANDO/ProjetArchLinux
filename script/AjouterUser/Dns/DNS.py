@@ -167,11 +167,10 @@ class DNS:
         print("\nSignature de la zone\n")
         cmd = "dnssec-signzone -A -3 $(head -c 1000 /dev/random | sha1sum | cut -b 1-16) "
         cmd += "-N INCREMENT -o " + self._domainname + " -t " + self._internalzone
-        os.system(cmd)
+        print(os.system(cmd))
 
     def createzone(self):
         self._savevdns()
         self._check_dns()
         self._sendbymail()
         self._signezone()
-
