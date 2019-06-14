@@ -138,10 +138,10 @@ function CreateDirectory {
 function InstallDir {
 	echo -e "\n\nCreation de la prison ssh jail\n"
 	pacstrap $JAIL_DIR base bash nano which tar less grep zsh coreutils \
-			        zsh-autosuggestions zsh-completions zshdb       \
-		            zsh-history-substring-search zsh-lovers         \
-		            zsh-syntax-highlighting zsh-theme-powerlevel9k  \
-			        powerline-fonts awesome-terminal-fonts mariadb-clients
+			   zsh-autosuggestions zsh-completions zshdb       \
+		           zsh-history-substring-search zsh-lovers         \
+		           zsh-syntax-highlighting zsh-theme-powerlevel9k  \
+			   powerline-fonts awesome-terminal-fonts mariadb-clients
 			        
 	yes 'o' | pacman -Rns arch-install-scripts
 	

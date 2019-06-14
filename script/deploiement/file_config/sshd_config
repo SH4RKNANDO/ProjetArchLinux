@@ -127,7 +127,6 @@ Subsystem	sftp	/usr/lib/ssh/sftp-server
 #	PermitTTY no
 #	ForceCommand cvs server
 
-
 Match Group sshusers
 	ChrootDirectory /home/jail/
 	X11Forwarding no

@@ -48,6 +48,13 @@ function ConfigBasic {
 	echo -e "\nSynchronisation de l'heure et du fuseaux Europe/Brussels\n"
 	ln -sfv /usr/share/zoneinfo/Europe/Brussels /etc/localtime
 	hwclock --systohc --utc
+
+	# Copy Firewall Cmd
+	cp -avr file_config/Firewall /usr/bin/Firewall
+        cp -avr file_config/Firewall_Flush /usr/bin/Firewall_Flush
+	cp -avr file_config/Firewall.service /etc/systemd/system/Firewall.service
+	systemctl enable Firewall.service
+	
 }
 
 function SetIpStatic {

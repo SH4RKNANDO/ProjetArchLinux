@@ -1,0 +1,125 @@
+#!/bin/bash
+
+# Check to Run As Root
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
+# Reset Firewall Rules
+echo -e "\nReset Firewalling Rules \n"
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
+iptables -t mangle -F
+iptables -t mangle -X
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+
+# Default Policy
+echo -e "\nDefault Policy\n"
+iptables -P INPUT DROP
+
+# Drop Packet XMAS and NULL
+echo -e "\nDropping XMAS and NULL\n"
+iptables -A INPUT -p tcp --tcp-flags FIN,URG,PSH FIN,URG,PSH -j DROP
+iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
+iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
+iptables -A INPUT -p tcp --tcp-flags SYN,RST SYN,RST -j DROP
+
+# Drop Broadcast
+echo -e "\nDrop Broadcast\n"
+iptables -A INPUT -m pkttype --pkt-type broadcast -j DROP
+
+# Logging INPUT / FORWARD
+echo -e "\nLogging INPUT / FORWARD\n"
+iptables -A INPUT -j LOG
+iptables -A FORWARD -j LOG
+
+# LoopBack
+echo -e "\nAccept LoopBack\n"
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
+# enable PING
+echo -e "\nAccept Ping\n"
+iptables -A INPUT -p icmp -j ACCEPT
+
+# enable SSH
+echo -e "\nEnabling SSH\n"
+iptables -A INPUT  -p tcp --dport 5555 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 5555 -m state --state ESTABLISHED -j ACCEPT
+
+# enable Block SSH BruteForce
+echo -e "\nEnabling SSH ANTI-BRUTEFORCE\n"
+iptables -I INPUT -p tcp --dport 5555 -i eth0 -m state --state NEW -m recent --set
+iptables -I INPUT -p tcp --dport 5555 -i eth0 -m state --state NEW -m recent  --update --seconds 60 --hitcount 4 -j LOG
+
+# enable HTTP/HTTPS
+echo -e "\nEnabling HTTP/HTTPS\n"
+iptables -A INPUT  -p tcp --dport 80 -m state --state ESTABLISHED -j ACCEPT
+iptables -A INPUT  -p tcp --dport 443  -m state --state ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# enable DNS
+echo -e "\nEnabling DNS\n"
+iptables -A OUTPUT -p udp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT  -p udp --sport 53 -m state --state ESTABLISHED -j ACCEPT
+
+# enable NFSv4
+echo -e "\nEnabling NFSv4\n"
+iptables -A INPUT -p tcp --dport 2049 -j ACCEPT
+iptables -A INPUT -p udp --dport 2049 -j ACCEPT
+
+# enable rpcbind/sunrpc
+echo -e "\nEnabling RPCBind/SunRPC\n"
+iptables -A INPUT -p tcp --dport 111 -j ACCEPT
+iptables -A INPUT -p udp --dport 111 -j ACCEPT
+
+# enable MYSQL
+echo -e "\nEnabling Mysql\n"
+iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
+
+# enable NTP
+echo -e "\nEnabling NTP\n"
+iptables -A OUTPUT -p udp --dport 123 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p udp --sport 123 -m state --state ESTABLISHED -j ACCEPT
+
+# enable VSFTPD
+echo -e "\nEnabling VSFTPD\n"
+iptables -A INPUT -p tcp --dport 5556 -j ACCEPT
+iptables -A INPUT -p udp --dport 20 -j ACCEPT
+iptables -A PREROUTING -t raw -p tcp --dport 21 -j CT --helper ftp
+
+# enable Send Mail
+echo -e "\nEnabling Send Mail\n"
+iptables -A OUTPUT -p tcp --dport 587 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 465 -j ACCEPT
+
+iptables -A OUTPUT -p tcp --dport 25 -j ACCEPT
+iptables -A OUTPUT -p udp --dport 25 -j ACCEPT
+
+
+# enable Webmin
+echo -e "\nEnabling WebMin\n"
+iptables -A INPUT -p tcp --dport 10000 -j ACCEPT
+
+# enable Pacman 
+echo -e "\nEnabling Pacman\n"
+iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+
+# enable Samba
+# 
+# Checking
+# netstat -tulpn | egrep "samba|smbd|nmbd|winbind"
+#
+echo -e "\nEnabling Samba (Smbd)\n"
+sudo iptables -A INPUT -p tcp --dport 139 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 445 -j ACCEPT
+echo -e "\nEnabling Samba (nmbd)\n"
+sudo iptables -A INPUT -p udp --dport 137 -j ACCEPT
+sudo iptables -A INPUT -p udp --dport 138 -j ACCEPT
+
