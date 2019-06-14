@@ -5,6 +5,7 @@ autoconf
 automake
 awesome-terminal-fonts
 bash
+base-devel
 bind
 binutils
 bison
