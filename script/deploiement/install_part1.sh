@@ -99,6 +99,7 @@ function InstallSystem {
 	yes 'n' | pacman -Suy 
 	yes 'y' | pacman -S reflector 
 	reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist
+        yes 'n' | pacman -Syy
 
 	echo -e "\nInstallation du système\n"
 	pacstrap /mnt < file_config/pkglist

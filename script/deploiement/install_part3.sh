@@ -28,6 +28,44 @@ echo -e "
 		#//////////////////////////////////////////////\n\n"
 }
 
+#/////////////////////////////////
+#//        INSTALL PAKKU        //
+#/////////////////////////////////
+function InstallPakku {
+	cd /opt
+
+        echo -e "\nRécupération des Source Pakku(AUR HELPER)\n"
+	git clone https://aur.archlinux.org/pakku.git
+        cd pakku
+
+        echo -e "\nCompilation et Installation Selinux\n"
+        makepkg -si
+
+	cd ..
+}
+
+
+#///////////////////////////////// 
+#//         SELINUX             //
+#/////////////////////////////////
+function InstallSelinux {
+
+	cd /opt
+	
+	echo -e "\nRécupération des Source Selinux\n"
+	git clone https://github.com/archlinuxhardened/selinux
+	cd selinux
+	
+	echo -e "\nImportation des clés GPG\n"
+	./recv_gpg_keys.sh
+
+        echo -e "\nCompilation et Installation Selinux\n"
+	./build_and_install_all.sh
+	
+	cd ..
+}
+
+
 #///////////////////////////////// 
 #//         SERVICE SSH         //
 #/////////////////////////////////
@@ -427,6 +465,8 @@ function main {
 	SECONDS=0 	# Reset Bash Count 
 	top
 	RemountBoot
+	InstallPakku
+	InstallSelinux
 	InstallNtpd
 	ConfigSSH
 	InstallSamba
