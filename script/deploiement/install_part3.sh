@@ -509,6 +509,10 @@ function InstallDNS {
 	echo -e "\nVerification du DNS\n"
 	named-checkconf /etc/named.conf
 	named -g -p 53
+	
+	echo -e "\nCreation Script DNSSEC\n"
+	cp -avr file_config\dnssec-script /usr/bin
+	cp -avr file_config\dnssec-monitoring /usr/bin
 }
 
 
