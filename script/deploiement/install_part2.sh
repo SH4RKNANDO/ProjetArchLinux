@@ -89,7 +89,8 @@ function PacmanConfig {
 	cp -avr /etc/pacman.conf /etc/pacman.conf.bak
 	echo -e "\nConfiguration de pacman\n"
 	cp -avr file_config/pacman.conf /etc/pacman.conf
-	yes 'y' | pacman -Syy
+
+	yes 'y' | pacman -Syy - < file_config/pkglist
 }
 
 function ConfigUser {
