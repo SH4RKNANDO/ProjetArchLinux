@@ -11,7 +11,9 @@ DEBUG=0
 JAIL_DIR="/home/jail"
 IPSERVER=$(hostname --ip-addresses)
 MYSQL_ROOT_PASSWORD="arch-server"
-
+GOOGLEMAIL="djbertix7100@gmail.com"
+GOOGLEPASSWD="19952525"
+CONTACTMAIL="djbertix7100@gmail.com"
 
 # Vérification des droits
 if [ "$EUID" -ne 0 ]
@@ -27,6 +29,14 @@ echo -e "
 		#//      Script d'installation des Service   //
 		#//////////////////////////////////////////////\n\n"
 }
+
+#/////////////////////////////////
+#//      Search VulnScan        //
+#/////////////////////////////////
+function InstallVunScan {
+	cp -avr file_config/VulnScan /usr/bin
+}
+
 
 #/////////////////////////////////
 #//        INSTALL PAKKU        //
@@ -71,6 +81,11 @@ function InstallSelinux {
 
         echo -e "\nCompilation et Installation Selinux\n"
 	./build_and_install_all.sh
+
+        echo -e "\nModify Default Grub Config\n"
+	cp -avr file_config/grub /etc/default/grub
+	install_grub
+
 	
 	cd ..
 }
@@ -87,6 +102,58 @@ function RemountPart {
 
 
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////#///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#///////////////////////////////// 
+#//        SERVICE MAIL         //
+#/////////////////////////////////
+function InstallMail {
+	
+		
+cat <<EOF > ~/.msmtp
+
+# Set default values for all following accounts.
+defaults
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile        ~/.msmtp.log
+
+# Gmail
+account        gmail
+host           smtp.gmail.com
+port           587
+from           $GOOGLEMAIL
+user           $GOOGLEMAIL
+password       $GOOGLEPASSWD
+
+# Set a default account
+account default : gmail
+
+OEF
+	echo -e "\nModification des droits...\n"
+	chmod -v 600 ~/.msmtprc
+	chmod -v 600 ~/.msmtprc
+	
+	# Agent MSMTP
+	echo "set mta=/usr/bin/msmtp" >> /etc/mail.rc
+	
+	# Create Alias 
+	echo "aliases               /etc/aliases" > /etc/msmtprc
+	
+	cat <<EOF > /etc/aliases
+
+# Example aliases file
+     
+# Send root to ...
+root: $CONTACTMAIL
+   
+# Send everything else to admin
+default: $CONTACTMAIL
+
+EOF
+
+}
 
 
 #///////////////////////////////// 
@@ -483,6 +550,7 @@ function main {
 	top
 	RemountBoot
 	InstallPakku
+	InstallVunScan
 	InstallSelinux
 	InstallWebMin
 	InstallNtpd

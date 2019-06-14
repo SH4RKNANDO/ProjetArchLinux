@@ -1,0 +1,15 @@
+#!/bin/bash
+
+cd /home/admin/
+
+# Create Vulns File
+arch-audit > Vulns
+arch-audit --upgradable > VulnsResolve
+
+# Send by Mail
+echo "" | mutt -s "Vulnerability Scan !" djbertix7100@gmail.com -a Vulns VulnsResolve 
+
+# Delete File
+rm -rfv Vulns
+rm -rfv VulnsResolve
+
