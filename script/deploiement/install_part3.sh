@@ -530,6 +530,9 @@ function InstallVSFTPD {
 	if [ $DEBUG -eq 1 ]; then 
 		systemctl status vsftpd
 	fi
+	
+	echo -e "\nPatch du Module PAM\n"
+	cp -avr file_config/vsftpd /etc/pam.d/
 }
 
 #///////////////////////////////// 
