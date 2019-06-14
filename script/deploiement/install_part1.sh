@@ -96,18 +96,13 @@ function MountPartition {
 function InstallSystem {
 	
 	# Maj des dépots        
-	yes 'n' | pacman -Suy reflector 
+	yes 'n' | pacman -Suy 
+	yes 'y' | pacman -S reflector 
 	reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist
 
 	echo -e "\nInstallation du système\n"
-	pacstrap /mnt base net-tools zsh git htop zshdb zsh-completions zsh-autosuggestions \
-	              zsh-history-substring-search zsh-lovers zsh-syntax-highlighting zssh  \
-	              zsh-theme-powerlevel9k powerline-fonts awesome-terminal-fonts acpi    \
-	              grub freetype2 fuse2 libisoburn mtools dosfstools openssh xorg-xauth  \
-	              x11-ssh-askpass samba nfs-utils python mkinitcpio-nfs-utils mariadb   \
-	              perl-dbd-mysql galera rsync ntp apache curl bind geoip-database-extra \
-	              arch-install-scripts vsftpd python-pip 
-	
+	pacstrap /mnt < file_config/pkglist
+                      	
 	echo -e "\nGeneration du fichier FSTAB\n"
 	genfstab -U -p /mnt > /mnt/etc/fstab
 	mount -v --bind /run/lvm /mnt/hostlvm
