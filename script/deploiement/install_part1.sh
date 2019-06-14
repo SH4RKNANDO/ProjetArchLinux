@@ -94,8 +94,11 @@ function MountPartition {
 }
 
 function InstallSystem {
-	yes 'n' | pacman -Suy
 	
+	# Maj des dépots        
+	yes 'n' | pacman -Suy reflector 
+	reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist
+
 	echo -e "\nInstallation du système\n"
 	pacstrap /mnt base net-tools zsh git htop zshdb zsh-completions zsh-autosuggestions \
 	              zsh-history-substring-search zsh-lovers zsh-syntax-highlighting zssh  \
