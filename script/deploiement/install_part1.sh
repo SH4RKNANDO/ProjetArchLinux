@@ -102,7 +102,7 @@ function InstallSystem {
         yes 'n' | pacman -Syy
 
 	echo -e "\nInstallation du système\n"
-	pacstrap /mnt base git
+	pacstrap /mnt base base-devel git
                      	
 	echo -e "\nGeneration du fichier FSTAB\n"
 	genfstab -U -p /mnt > /mnt/etc/fstab
