@@ -150,7 +150,7 @@ function LaunchScript {
 	groupadd sshusers
 	chmod +x -v install_part2.sh
 	chmod +x -v install_part3.sh
-	
+
 	bash install_part2.sh
 EOF
 }
@@ -165,7 +165,7 @@ function main {
 	InstallSystem
 	CheckServer
 	LaunchScript
-	
+
 	# Cleanning
 	umount -Rv /mnt/hostlvm
 	rm -rfv  /mnt/hostlvm
