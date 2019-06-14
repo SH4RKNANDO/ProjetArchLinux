@@ -55,12 +55,12 @@ function InstallPakku {
 }
 
 #/////////////////////////////////
-#//           WEBMIN            //
+#//   INSTALL AUR PACKAGES      //
 #/////////////////////////////////
-function InstallWebMin {
+function InstallPackageAur {
 	cd /opt
-        echo -e "\nInstallation de Webmin via Pakku\n"
-	pakku -S webmin
+        echo -e "\nInstallation des AUR PACKAGES via Pakku\n"
+	pakku -S - < file_config/pkglistaur
 	cd ..
 }
 
@@ -559,7 +559,7 @@ function main {
 	InstallPakku
 	InstallVunScan
 	InstallSelinux
-	InstallWebMin
+	InstallPackageAur
 	InstallNtpd
 	ConfigSSH
 	InstallSamba
