@@ -10,6 +10,7 @@ USER_PASSWORD="arch-server"
 USER_NAME="admin"
 GRUB_DISK="/dev/sde"
 IPSTATIC="10.0.0.39/24"
+IPSTATIC2="10.0.0.39"
 IPROUTER="10.0.0.1"
 CHECKIP='y'
 HOSTNAME="arch-server"
@@ -69,7 +70,7 @@ Connection=ethernet
 IP=static
 Address=('"$IPSTATIC"')
 Gateway='"$IPROUTER"'
-DNS=('1.1.1.1' '"$IPSTATIC"')" > $FILE
+DNS=('1.1.1.1' '"$IPSTATIC2"')" > $FILE
 
 	echo -e "\nActivation de l'addresse IP Static\n"
 	netctl enable $NETWORK_INTERFACE
