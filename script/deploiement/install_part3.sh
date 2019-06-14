@@ -44,6 +44,16 @@ function InstallPakku {
 	cd ..
 }
 
+#/////////////////////////////////
+#//           WEBMIN            //
+#/////////////////////////////////
+function InstallWebMin {
+	cd /opt
+        echo -e "\nInstallation de Webmin via Pakku\n"
+	pakku -S webmin
+	cd ..
+}
+
 
 #///////////////////////////////// 
 #//         SELINUX             //
@@ -474,6 +484,7 @@ function main {
 	RemountBoot
 	InstallPakku
 	InstallSelinux
+	InstallWebMin
 	InstallNtpd
 	ConfigSSH
 	InstallSamba
